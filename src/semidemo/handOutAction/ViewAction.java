@@ -7,9 +7,15 @@ import semidemo.dao.Handout_postDAO;
 
 public class ViewAction {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
-	      int num = Integer.parseInt(req.getParameter("num"));
+	      int num = Integer.parseInt(req.getParameter("handout_post_num"));
+	      
+	      
 	      Handout_postDAO dao = Handout_postDAO.getInstance();
+	      
 	      dao.readCountMethod(num);
+	      
 	      req.setAttribute("dto", dao.viewMethod(num));
+	      
+	      
 	   }// end execute()/////////////////////////////////////////////////
 }

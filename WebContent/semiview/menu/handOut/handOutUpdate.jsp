@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>무료나눔 글쓰기페이지</title>
+<title>무료나눔 수정페이지</title>
 <style type="text/css">
 .layer {
 	position: absolute;
@@ -221,10 +221,6 @@ textarea {
 	line-height: 200px;
 }
 
-#uploadImage {
-	background-image: url("../semiview/images/upload_on.png");
-}
-
 /*-------------------------------------------------------------------------*/
 </style>
 <script
@@ -301,6 +297,8 @@ textarea {
 				$('#uploadImage').click(function(){
 					$('#writeForm').submit();
 				});
+				
+			
 
 			
 			});
@@ -338,15 +336,17 @@ textarea {
 			<!-- 무료나눔하기 글쓰기 페이지 구현 소스 -->
 			<div id="inputContent">
 				<div id="left">
-					<h1> 글쓰기 </h1>
+					<h1>글수정하기</h1>
 					<form name="writeForm" id="writeForm" method="POST"
-						action="handOutWriteForm.do" enctype="multipart/form-data">
+						action="handOutUpdatePro.do" enctype="multipart/form-data">
+						
+						<input type="hidden" name="handout_post_num" value="${dto.handout_post_num}"/>
 						<div class="writeContent">
-							<label>제목 </label><input type="text" id="title" name="title"
-								placeholder="예)아기 침대 무료 나눔해요" />
+							<label>제목</label><input type="text" id="title" name="title"
+								value="${dto.title}" />
 						</div>
 						<div class="writeContent">
-							<label>닉네임 </label><input type="text" placeholder="홍길동" name="nickname" />
+							<label>닉네임 </label><input type="text" value="${dto.nickname}" name="nickname" />
 							
 						</div>
 						<div class="writeContent">
@@ -373,7 +373,7 @@ textarea {
 								<option value="4개월~6개월">4개월~6개월</option>
 								<option value="7개월~9개월">7개월~9개월</option>
 								<option value="10개월~12개월">10개월~12개월</option>
-								<option value="1년이상">1년이상</option>
+								<option value="1년이상">${dto.condition_list}</option>
 							</select> <select id="Product status" name="Product status">
 								<option value="상품상태">상품상태</option>
 								<option value="최상">최상</option>
@@ -384,8 +384,7 @@ textarea {
 						</div>
 						<div class="writeContent">
 							<label id="contentLabel">내용 </label>
-							<textarea id="contents" name="contents"
-								placeholder="무료 나눔 상품에 대해 설명해주세요"></textarea>
+							<textarea id="contents" name="contents" >${dto.content}</textarea>
 						</div>
 				</div>
 				<div id="right">
@@ -393,25 +392,26 @@ textarea {
 						<img id="mainImage" width="200px" height="200px"
 							src="../semiview/images/camera.png" /></br> 
 						<label for="mainfile" class="fileImages">메인이미지</label> 
-							<a href="handOutWriteForm.do" id="fileSelect" class="inputFiles">
-							<input type="file" name="mainfile" id="mainfile" /></a> 
+							<a href="handOutUpdateWrite.do" id="fileSelect" class="inputFiles">
+							<input type="file" name="mainfile" id="mainfile" value="${dto.main_picture}"/></a> 
 						<label for="file1" class="fileImages">이미지1</label> 
-						<a href="handOutWriteForm.do" id="fileSelect" class="inputFiles">
-							<input type="file" id="file1" name="file1"/></a></br> 
+						<a href="handOutUpdateWrite.do" id="fileSelect" class="inputFiles">
+							<input type="file" id="file1" name="file1" value="${dto.picture1}"/></a></br> 
 						<label for="file2" class="fileImages">이미지2</label>
-						<a href="handOutWriteForm.do" id="fileSelect" class="inputFiles">
-							<input	type="file" id="file2"  name="file2"/></a> 
+						<a href="handOutUpdateWrite.do" id="fileSelect" class="inputFiles">
+							<input	type="file" id="file2"  name="file2" value="${dto.picture2}"/></a> 
 						<label for="file3"	class="fileImages">이미지3</label> 
-						<a href="handOutWriteForm.do" id="fileSelect" class="inputFiles">
-							<input type="file" id="file3" name="file3"/></a></br>
+						<a href="handOutUpdateWrite.do" id="fileSelect" class="inputFiles">
+							<input type="file" id="file3" name="file3" value="${dto.picture3}"/></a></br>
 					</div>
 				</div>
 				<div id="upAndcenclebutton" alt="등록/취소 버튼 div" align="center">
-					
+					 
+
 					<input type="submit" name="submit" id="uploadImage" value="등록" class="uploadAndcancel"/>
 					
 					 
-					<a href="handOut.do"> 
+					<a href="handOut.do">
 					<input type="button" name="cancel" id="cancel" value="취소" class="uploadAndcancel"/>
 					</a>
 				</div>

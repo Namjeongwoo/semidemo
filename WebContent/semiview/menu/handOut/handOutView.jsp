@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>무료나눔 첫페이지</title>
+<title>무료나눔상세페이지</title>
 <style type="text/css">
 .layer {
 	position: absolute;
@@ -44,16 +44,6 @@
 	width: 150px;
 	height: 75px;
 }
-
-/*
-	1.상단 맘마레시피 이미지 만들고 첨부하기. 
-	2.메뉴바 만들어서 메뉴 하나당 이미지 넣기. (o)
-	3.메뉴 하나당 커서 올리면 a:hover 이용해서 메뉴의 목록 나오게 하기. (o)
-	4.오른쪽 상단에 로그인 만들기.
-	5.상단과 로그인 화면은 고정시키고, content 부분만 동적으로 처리 할 수 있게 만들기??? 맞나
-	
-	
-*/
 
 /*-----------------------------메뉴바 css------------------------------*/
 .menubar {
@@ -150,37 +140,84 @@
 
 /*---------------------------게시글 css --------------------------------------*/
 
-#content {
+#inputContent {
+	background-color: gray;
+	width: 1000px;
+	height: 500px;
+	margin: auto;
+}
+table{
 	width: 100%;
- 	text-align: center;
+	height: 100%;
 }
-
-.inputDiv {
-	display: inline-block;
-}
-
-table {
+table tr,td{
 	border: 1px solid black;
-	float: left;
+}
+
+img {
+	width: 200px;
+	height: 200px;
+}
+
+#buttonGroup{
+	float: right;
 }
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="../semiview/handOut/jquery.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		//로그인 이미지 hover 적용
-		$('#loginBtn').hover(
+	$(document).ready(
 			function() {
-			$(this).attr("src",$(this).attr("src").replace("off.png","on.png"));},
-			function() {
-			$(this).attr("src",$(this).attr("src").replace("on.png","off.png"));});
-		//무료나눔하기 이미지 hover 적용
-		$('#handOut').hover(
-			function() {
-			$(this).attr("src",$(this).attr("src").replace("off.png","on.png"));},
-			function() {
-			$(this).attr("src",$(this).attr("src").replace("on.png","off.png"));});
-	});
+				//로그인 이미지 hover 적용
+				$('#loginBtn').hover(
+						function() {
+							$(this).attr(
+									"src",
+									$(this).attr("src").replace("off.png",
+											"on.png"));
+						},
+						function() {
+							$(this).attr(
+									"src",
+									$(this).attr("src").replace("on.png",
+											"off.png"));
+						});
+				//무료나눔하기 이미지 hover 적용
+				$('#handOut').hover(
+						function() {
+							$(this).attr(
+									"src",
+									$(this).attr("src").replace("off.png",
+											"on.png"));
+						},
+						function() {
+							$(this).attr(
+									"src",
+									$(this).attr("src").replace("on.png",
+											"off.png"));
+						});
+				
+				//목록
+				$('#list').on('click', function(){
+					$('form').attr('action', 'handOut.do'); 
+				    $('form').submit();
+				});
+				
+				//수정
+				$('#update').on('click', function(){
+					$('form').attr('action', 'handOutUpdateWrite.do'); 
+				    $('form').submit();
+				});
+				
+				//삭제
+				$('#del').on('click', function(){
+					$('form').attr('action', 'handOutDelete.do'); 
+				    $('form').submit();
+				});
+				
+			});
 </script>
 </head>
 <body>
@@ -208,11 +245,88 @@ table {
 		</div>
 		<div id="content" alt="페이지마다 바뀔 DIV 요소입니다. css 설정 안해놓은 상태입니다.">
 			<div id="inputContent">
-			
+				<table>
+					<tr>
+						<td>닉네임</td>
+						<td>${dto.nickname}</td>
+						<td>조회수</td>
+						<td>${dto.readcount}</td>
+					</tr>
+
+					<tr>
+						<td>제목</td>
+						<td colspan="3">${dto.title}</td>
+					</tr>
+
+					<tr>
+						<td>지역</td>
+
+						<td colspan="3">${dto.area}</td>
+					</tr>
+					<tr>
+						<td>종류</td>
+
+						<td colspan="3">${dto.type_list}</td>
+					</tr>
+					<tr>
+						<td>사용기간</td>
+
+						<td colspan="3">${dto.period_list}</td>
+					</tr>
+
+					<tr>
+					<tr>
+						<td>내용</td>
+
+						<td colspan="3">${dto.content}</td>
+					</tr>
+						<td>메인이미지</td>
+						<td colspan="3"><img id="main_image" width="200px" height="200px"
+							src="../semiview/images/handout/${dto.main_picture}" /></td>
+					</tr>
+					<tr>
+						<td>서브이미지1</td>
+						<td colspan="3"><img id="sub_image1"
+							src="../semiview/images/handout/${dto.picture1}" /></td>
+					</tr>
+					
+					<tr>
+						<td>서브이미지2</td>
+						<td colspan="3"><img id="sub_image2"
+							src="../semiview/images/handout/${dto.picture2}" /></td>
+					</tr>
+					<tr>
+						<td>서브이미지3</td>
+						<td colspan="3"><img id="sub_image3"
+							src="../semiview/images/handout/${dto.picture3}" /></td>
+					</tr>
+				</table>
+				<div id="buttonGroup">
+				<form name="frm" method="POST">
+				<input type="hidden" name="handout_post_num" value="${dto.handout_post_num}" />
+				<input type="hidden" name="pageNum" value="${param.pageNum}" />
+				
+							
+				<input type="button" id="list" name="list" value="목록"/>
+				<input type="button" id="update" name="update" value="수정"/>
+				<input type="button" id="del" name="del" value="삭제"/>
+				</form>
+				</div>
+			</div>
+			<!-- 댓글 입력/댓글 내용 출력 -->
+			<div id="commentDiv">
+
+				<div id="commentList" name="commentList" alt="댓글내용 출력 DIV입니다.">
+					<script type="text/javascript">
+						//num값의 해당하는 댓글들 가져올거야
+						listView("${requestScope.dto.handout_post_num}")
+					</script>
+				</div>
 			</div>
 		</div>
 	</div>
-	<a href = "login.do"><img id="loginBtn" src="../semiview/images/loginBtn_off.png"/></a>
+	<a href="login.do"><img id="loginBtn"
+		src="../semiview/images/loginBtn_off.png" /></a>
 
 </body>
 </html>
