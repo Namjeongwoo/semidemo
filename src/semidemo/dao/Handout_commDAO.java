@@ -88,5 +88,35 @@ public class Handout_commDAO {
 		}
 	}
 	   return comm_list;
+   }//end comm_viewMethod()/////////////////
+   
+   
+   public void comm_insertMethod(Handout_commDTO dto) {
+	   try {
+		conn = init();
+		System.out.println("comm_insertMethod DB 연결 성공!");
+		String sql = "insert into handout_comm values(handout_comm_num_seq.nextval, 39, '닉네임4', sysdate, '아뇽하세요~', 'dog.jpg')";
+		pstmt = conn.prepareStatement(sql);
+		//pstmt.setInt(1, dto.getHandout_post_num());
+		//pstmt.setString(2, dto.getNickname());
+		//pstmt.setString(3, dto.getContent());
+		//pstmt.setString(4, dto.getImage());
+		pstmt.executeUpdate();
+		
+		
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		try {
+			exit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
    }
 }//end class

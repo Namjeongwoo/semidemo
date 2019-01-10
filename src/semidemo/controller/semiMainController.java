@@ -19,6 +19,7 @@ import semidemo.handOutAction.ViewAction;
 import semidemo.handOutAction.WriteAction;
 
 import semidemo.handOutAction.commViewAction;
+import semidemo.handOutAction.commWriteAction;
 
 //시작하는 곳 (메인 페이지)
 @WebServlet("/mammaMain/*")
@@ -102,8 +103,6 @@ public class semiMainController extends HttpServlet {
 			ViewAction view = new ViewAction();
 			view.execute(req, resp);
 			
-			
-			
 			//상세 페이지에서 그동안 입력된 댓글 보여준다.
 			commViewAction commList = new commViewAction();
 			commList.execute(req, resp);
@@ -130,6 +129,13 @@ public class semiMainController extends HttpServlet {
 			
 			//현재 페이지값을 넘겨주면서, 상품 리스트로 이동.
 			resp.sendRedirect("handOut.do?pageNum="+req.getParameter("pageNum"));
+		
+		} else if (action.equals("/commWrite.do")) {
+			//상세 페이지 댓글 입력
+			commWriteAction commWrite = new commWriteAction();
+			commWrite.execute(req, resp);
+			
+			resp.sendRedirect("handOutView.do?handout_post_num="+req.getParameter("handout_post_num"));
 		}
 
 		

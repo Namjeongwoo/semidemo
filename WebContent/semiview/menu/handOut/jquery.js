@@ -1,5 +1,5 @@
 
-var titleNum; //다른 리스트에서 참조되어야 하기 때문에 전역변수로 선언.
+/*var titleNum; //다른 리스트에서 참조되어야 하기 때문에 전역변수로 선언.
 
 $(document).ready(function(){
 	//댓글입력
@@ -102,4 +102,4 @@ function viewMessage(res){
 		$(div).append(inputdelete);
 	}
 };//end viewMessage()///////
-
+*/

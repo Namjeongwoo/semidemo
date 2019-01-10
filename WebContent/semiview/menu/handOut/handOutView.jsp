@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -317,7 +318,8 @@ td img {
 				
 				//댓글입력
 				$('#commInputBtn').on('click', function() {
-					$('form').attr('action', 'handOutView.do');
+					$('[name=textInput]').val($('[name=textInput]').val().replace(/\n/gi,'<br/>'));
+					$('form').attr('action', 'commWrite.do');
 					$('form').submit();
 				});
 
@@ -325,6 +327,16 @@ td img {
 </script>
 </head>
 <body>
+<jsp:scriptlet>
+
+	//치환 변수 선언
+	pageContext.setAttribute("cr", "\r");  //space
+	pageContext.setAttribute("cn", "\n"); //Enter
+	pageContext.setAttribute("crcn", "\r\n"); //Space, Enter
+	
+
+</jsp:scriptlet>
+
 	<div class="layer" id="wrap">
 		<div id="topbannerDiv">
 			<img id="momsRecipe" src="../semiview/images/mammaLogo.png" />
@@ -416,7 +428,7 @@ td img {
 						<input type="button" id="del" name="del" value="삭제" />
 						<input type="button" name="cancel" id="cancel" value="취소" />
 
-					</form>
+					
 				</div>
 			</div>
 			<!-- 댓글 입력/댓글 내용 출력 -->
@@ -424,13 +436,17 @@ td img {
 
 				<!-- 댓글입력 -->
 				<div id="commAdd">
-					<p>닉네임공간<p>
-					<textarea id="textInput" name="textInput" placeholder="댓글을 입력해주세요"></textarea>	
+					<input type="text" id="nickname" name="nickname" value="닉네임"/>
+					
+					<textarea id="textInput" name="textInput" placeholder="댓글을 입력해주세요"></textarea>
+						
 					<div id="commImagesDIV">
-						<img id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/>
+						<input type="image" id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/>
+						<!-- <img id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/> -->
 						<img id="quesImage" name="quesImage" src="../semiview/images/handout/ques_off.png"/>
 						<input type="button" id="commInputBtn" name="commInputBtn" value="댓글입력"/>
 					</div>
+					</form>
 				</div>
 				
 				<!-- 댓글목록출력 -->
