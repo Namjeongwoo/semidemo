@@ -22,7 +22,7 @@ public class joinAction {
       /*dto.setCnt(Integer.parseInt(req.getParameter("cnt")));*/
       dto.setGrade(req.getParameter("grade"));
       
-      dao.insertMember(dto);
+      //dao.insertMember(dto);
       
    }//end execute()//////////////////////////////////////////////
 }

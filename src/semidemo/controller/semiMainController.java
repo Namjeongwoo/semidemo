@@ -18,6 +18,8 @@ import semidemo.handOutAction.UpdateProAction;
 import semidemo.handOutAction.ViewAction;
 import semidemo.handOutAction.WriteAction;
 
+import semidemo.handOutAction.commViewAction;
+
 //시작하는 곳 (메인 페이지)
 @WebServlet("/mammaMain/*")
 public class semiMainController extends HttpServlet {
@@ -99,6 +101,13 @@ public class semiMainController extends HttpServlet {
 			//상세 페이지 이동시 DB에 있는 내용 테이블에 불러와서 보여준다.
 			ViewAction view = new ViewAction();
 			view.execute(req, resp);
+			
+			
+			
+			//상세 페이지에서 그동안 입력된 댓글 보여준다.
+			commViewAction commList = new commViewAction();
+			commList.execute(req, resp);
+			
 			path = "/semiview/menu/handOut/handOutView.jsp";
 
 		} else if (action.equals("/handOutUpdateWrite.do")) {
@@ -113,7 +122,7 @@ public class semiMainController extends HttpServlet {
 			UpdateProAction updatePro = new UpdateProAction();
 			MultipartRequest multi = updatePro.excute(req, resp);
 			//수정 후에 상품리스트로 돌아가기.
-			resp.sendRedirect("handOut.do");
+			resp.sendRedirect("handOut.do?pageNum="+multi.getParameter("pageNum"));
 		
 		} else if (action.equals("/handOutDelete.do")) {
 			DeleteAction delete = new DeleteAction();

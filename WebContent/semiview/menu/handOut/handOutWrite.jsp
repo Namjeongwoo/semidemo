@@ -221,7 +221,7 @@ textarea {
 	line-height: 200px;
 }
 
-#uploadImage {
+#upload {
 	background-image: url("../semiview/images/upload_on.png");
 }
 
@@ -298,7 +298,8 @@ textarea {
 						});
 				
 				//등록버튼 서브밋 이벤트.
-				$('#uploadImage').click(function(){
+				$('#upload').click(function(){
+					$('[name=contents]').val($('[name=contents]').val().replace(/\n/gi,'<br/>'));
 					$('#writeForm').submit();
 				});
 
@@ -307,6 +308,16 @@ textarea {
 </script>
 </head>
 <body>
+<jsp:scriptlet>
+
+	//치환 변수 선언
+	pageContext.setAttribute("cr", "\r"); //space
+	pageContext.setAttribute("cn", "\n"); //Enter
+	pageContext.setAttribute("crcn", "\r\n"); //Space, Enter
+	
+
+</jsp:scriptlet>
+
 	<div class="layer" id="wrap">
 		<div id="topbannerDiv">
 			<img id="momsRecipe" src="../semiview/images/mammaLogo.png" />
@@ -408,7 +419,7 @@ textarea {
 				</div>
 				<div id="upAndcenclebutton" alt="등록/취소 버튼 div" align="center">
 					
-					<input type="submit" name="submit" id="uploadImage" value="등록" class="uploadAndcancel"/>
+					<input type="submit" name="submit" id="upload" value="등록" class="uploadAndcancel"/>
 					
 					 
 					<a href="handOut.do"> 

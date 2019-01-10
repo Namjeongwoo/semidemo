@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -294,8 +295,8 @@ textarea {
 						});
 				
 				//등록버튼 서브밋 이벤트.
-				$('#uploadImage').click(function(){
-					$('#writeForm').submit();
+				$('#upload').click(function(){
+					$('[name=contents]').val($('[name=contents]').val().replace(/\n/gi,'<br/>'));
 				});
 				
 			
@@ -305,6 +306,16 @@ textarea {
 </script>
 </head>
 <body>
+<jsp:scriptlet>
+
+	//치환 변수 선언
+	pageContext.setAttribute("cr", "\r");  //space
+	pageContext.setAttribute("cn", "\n"); //Enter
+	pageContext.setAttribute("crcn", "\r\n"); //Space, Enter
+	
+
+</jsp:scriptlet>
+
 	<div class="layer" id="wrap">
 		<div id="topbannerDiv">
 			<img id="momsRecipe" src="../semiview/images/mammaLogo.png" />
@@ -338,7 +349,7 @@ textarea {
 				<div id="left">
 					<h1>글수정하기</h1>
 					<form name="writeForm" id="writeForm" method="POST"
-						action="handOutUpdatePro.do" enctype="multipart/form-data">
+						action="handOutUpdatePro.do?pageNum=${param.pageNum}" enctype="multipart/form-data">
 						
 						<input type="hidden" name="handout_post_num" value="${dto.handout_post_num}"/>
 						<div class="writeContent">
@@ -384,7 +395,7 @@ textarea {
 						</div>
 						<div class="writeContent">
 							<label id="contentLabel">내용 </label>
-							<textarea id="contents" name="contents" >${dto.content}</textarea>
+							<textarea id="contents" name="contents" ><c:out value="${fn:replace(dto.content, '<br/>', cn)}" /></textarea>
 						</div>
 				</div>
 				<div id="right">
@@ -408,7 +419,7 @@ textarea {
 				<div id="upAndcenclebutton" alt="등록/취소 버튼 div" align="center">
 					 
 
-					<input type="submit" name="submit" id="uploadImage" value="등록" class="uploadAndcancel"/>
+					<input type="submit" name="submit" id="upload" value="등록" class="uploadAndcancel"/>
 					
 					 
 					<a href="handOut.do">

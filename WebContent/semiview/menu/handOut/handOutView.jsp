@@ -139,37 +139,62 @@
 /*-------------------------------------------------------------------------*/
 
 /*---------------------------게시글 css --------------------------------------*/
-
 #inputContent {
 	background-color: gray;
 	width: 1000px;
 	height: 500px;
 	margin: auto;
 }
-table{
+
+table {
 	width: 100%;
 	height: 100%;
 }
-table tr,td{
+
+table tr, td {
 	border: 1px solid black;
 }
 
-img {
-	width: 200px;
-	height: 200px;
+td img {
+	width: 50px;
+	height: 50px;
 }
 
-#buttonGroup{
+/*등록/삭제/수정/취소 버튼 DIV*/
+#buttonGroup {
+	background-color: gray;
 	float: right;
 }
+
+/*댓글입력 DIV*/
+#commAdd{
+	border: 1px solid black;
+	width: 500px;
+	
+	
+}
+
+/*댓글입력 텍스트필드*/
+#textInput  {
+	width: 400px;
+	height: 100px;
+}
+
+/*댓글 입력하면 띄우는 내용 DIV*/
+#commContent {
+	border: 1px solid black;
+	width: 500px;
+	
+	
+}
+
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script type="text/javascript" src="../semiview/handOut/jquery.js"></script>
 <script type="text/javascript">
-	$(document).ready(
-			function() {
+	$(document).ready(function() {
 				//로그인 이미지 hover 적용
 				$('#loginBtn').hover(
 						function() {
@@ -199,24 +224,103 @@ img {
 											"off.png"));
 						});
 				
+				//call 이미지 호버 적용
+				/* $('#callImage').hover(
+						function() {
+							$(this).attr(
+									"src",
+									$(this).attr("src").replace("off.png",
+											"on.png"));
+						},
+						function() {
+							$(this).attr(
+									"src",
+									$(this).attr("src").replace("on.png",
+											"off.png"));
+						}); */
+				
+				//quesImage 이미지 hover 적용
+				
+			/* 	$('#quesImage').hover(function() {
+							$(this).attr(
+									"src",
+									$(this).attr("src").replace("off.png",
+											"on.png"));
+						},function() {
+							$(this).attr(
+									"src",
+									$(this).attr("src").replace("on.png",
+											"off.png"));
+						}); */
+						
+			//전화 연락 이미지 클릭 이벤트---------------------------------------------------------------------
+			var state = $('#callImage').data('state'); //undefined
+			     $('#callImage').click(function(){
+				     state = !state;   //first click make this true
+			     if(state){
+				     $(this).attr("src",$(this).attr("src").replace("off.png","on.png")); 
+				     $('#textInput').attr("placeholder","카카오톡 아이디 또는 연락처를 남겨주세요");
+				     return false;
+
+				 }else {
+				 	$(this).attr("src",$(this).attr("src").replace("on.png","off.png")); 
+				 	$('#textInput').attr("placeholder","댓글을 입력해주세요");
+				 	return false;
+				 }
+			    	 $(this).data('state', state); // save state
+					         
+				 });
+			//물음표 질문 이미지 클릭 이벤트---------------------------------------------------------------------
+			var state = $('#quesImage').data('state'); //undefined
+			     $('#quesImage').click(function(){
+				     state = !state;   //first click make this true
+			     if(state){
+				     $(this).attr("src",$(this).attr("src").replace("off.png","on.png")); 
+				     $('#textInput').attr("placeholder","질문있습니다");
+				     return false;
+
+			     }else {
+				  	$(this).attr("src",$(this).attr("src").replace("on.png","off.png")); 
+				  	$('#textInput').attr("placeholder","댓글을 입력해주세요");
+				  	return false;
+				 }
+				    $(this).data('state', state); // save state
+							         
+				 });
+		
+	
+//////////////////////////////////////////////////////////////////////////////////////////
+
 				//목록
-				$('#list').on('click', function(){
-					$('form').attr('action', 'handOut.do'); 
-				    $('form').submit();
+				$('#list').on('click', function() {
+					$('form').attr('action', 'handOut.do');
+					$('form').submit();
 				});
-				
+
 				//수정
-				$('#update').on('click', function(){
-					$('form').attr('action', 'handOutUpdateWrite.do'); 
-				    $('form').submit();
+				$('#update').on('click', function() {
+					$('form').attr('action', 'handOutUpdateWrite.do');
+					$('form').submit();
 				});
-				
+
 				//삭제
-				$('#del').on('click', function(){
-					$('form').attr('action', 'handOutDelete.do'); 
-				    $('form').submit();
+				$('#del').on('click', function() {
+					$('form').attr('action', 'handOutDelete.do');
+					$('form').submit();
 				});
 				
+				//취소
+				$('#cancel').on('click', function() {
+					$('form').attr('action', 'handOut.do');
+					$('form').submit();
+				});
+				
+				//댓글입력
+				$('#commInputBtn').on('click', function() {
+					$('form').attr('action', 'handOutView.do');
+					$('form').submit();
+				});
+
 			});
 </script>
 </head>
@@ -280,16 +384,17 @@ img {
 
 						<td colspan="3">${dto.content}</td>
 					</tr>
-						<td>메인이미지</td>
-						<td colspan="3"><img id="main_image" width="200px" height="200px"
-							src="../semiview/images/handout/${dto.main_picture}" /></td>
+					<td>메인이미지</td>
+					<td colspan="3"><img id="main_image" width="200px"
+						height="200px"
+						src="../semiview/images/handout/${dto.main_picture}" /></td>
 					</tr>
 					<tr>
 						<td>서브이미지1</td>
 						<td colspan="3"><img id="sub_image1"
 							src="../semiview/images/handout/${dto.picture1}" /></td>
 					</tr>
-					
+
 					<tr>
 						<td>서브이미지2</td>
 						<td colspan="3"><img id="sub_image2"
@@ -302,29 +407,50 @@ img {
 					</tr>
 				</table>
 				<div id="buttonGroup">
-				<form name="frm" method="POST">
-				<input type="hidden" name="handout_post_num" value="${dto.handout_post_num}" />
-				<input type="hidden" name="pageNum" value="${param.pageNum}" />
-				
-							
-				<input type="button" id="list" name="list" value="목록"/>
-				<input type="button" id="update" name="update" value="수정"/>
-				<input type="button" id="del" name="del" value="삭제"/>
-				</form>
+					<form name="frm" method="POST">
+						<input type="hidden" name="handout_post_num" value="${dto.handout_post_num}" /> 
+						<input type="hidden" name="pageNum" value="${param.pageNum}" /> 
+						
+						<input type="button" id="list" name="list" value="목록" /> 
+						<input type="button" id="update" name="update" value="수정" /> 
+						<input type="button" id="del" name="del" value="삭제" />
+						<input type="button" name="cancel" id="cancel" value="취소" />
+
+					</form>
 				</div>
 			</div>
 			<!-- 댓글 입력/댓글 내용 출력 -->
-			<div id="commentDiv">
+			<div id="commDiv" style="clear: both;">
 
-				<div id="commentList" name="commentList" alt="댓글내용 출력 DIV입니다.">
-					<script type="text/javascript">
-						//num값의 해당하는 댓글들 가져올거야
-						listView("${requestScope.dto.handout_post_num}")
-					</script>
+				<!-- 댓글입력 -->
+				<div id="commAdd">
+					<p>닉네임공간<p>
+					<textarea id="textInput" name="textInput" placeholder="댓글을 입력해주세요"></textarea>	
+					<div id="commImagesDIV">
+						<img id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/>
+						<img id="quesImage" name="quesImage" src="../semiview/images/handout/ques_off.png"/>
+						<input type="button" id="commInputBtn" name="commInputBtn" value="댓글입력"/>
+					</div>
 				</div>
+				
+				<!-- 댓글목록출력 -->
+				<p>댓글내용</p>
+				<c:forEach items="${requestScope.comm_dto}" var="comm_dto">
+					<div id="commContent">
+						<div style="float: left;">
+							<img style="width:50px; height: 50px;" src="../semiview/images/handout/${comm_dto.image}"/>
+						</div>
+						<span>${comm_dto.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+						<span style="display: block; float: right;">${comm_dto.write_time}&nbsp;&nbsp;</span>
+						<div style="clear: both;">
+						<p>${comm_dto.content}</p>
+						</div>	
+					</div>	
+				</c:forEach>
+			</div>
 			</div>
 		</div>
-	</div>
+	
 	<a href="login.do"><img id="loginBtn"
 		src="../semiview/images/loginBtn_off.png" /></a>
 
