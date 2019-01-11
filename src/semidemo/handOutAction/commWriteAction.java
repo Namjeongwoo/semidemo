@@ -14,12 +14,12 @@ public class commWriteAction {
 		int num = Integer.parseInt(req.getParameter("handout_post_num"));
 		String nickname = req.getParameter("nickname");
 		String textInput = req.getParameter("textInput");
-		String callImage = req.getParameter("callImage");
+		String image = req.getParameter("image");
 		
-		System.out.println("commWriteAction num: "+num);
-		System.out.println("commWriteAction nickname: "+nickname);
-		System.out.println("commWriteAction textInput: "+textInput);
-		System.out.println("commWriteAction callImage: "+callImage);
+		//System.out.println("commWriteAction num: "+num);
+		//System.out.println("commWriteAction nickname: "+nickname);
+		//System.out.println("commWriteAction textInput: "+textInput);
+		System.out.println("commWriteAction image: "+image);
 		
 		Handout_commDAO dao = Handout_commDAO.getInstance();
 		Handout_commDTO dto = new Handout_commDTO();
@@ -27,7 +27,7 @@ public class commWriteAction {
 		dto.setHandout_post_num(num);
 		dto.setNickname(nickname);
 		dto.setContent(textInput);
-		dto.setImage(callImage);
+		dto.setImage(image);
 		dao.comm_insertMethod(dto);
 			
 		

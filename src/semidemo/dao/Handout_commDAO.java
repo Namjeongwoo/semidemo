@@ -95,12 +95,12 @@ public class Handout_commDAO {
 	   try {
 		conn = init();
 		System.out.println("comm_insertMethod DB 연결 성공!");
-		String sql = "insert into handout_comm values(handout_comm_num_seq.nextval, ?, ?, sysdate, ?, 'ques_on.png')";
+		String sql = "insert into handout_comm values(handout_comm_num_seq.nextval, ?, ?, sysdate, ?, ?)";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, dto.getHandout_post_num());
 		pstmt.setString(2, dto.getNickname());
 		pstmt.setString(3, dto.getContent());
-		//pstmt.setString(4, dto.getImage());
+		pstmt.setString(4, dto.getImage());
 		pstmt.executeUpdate();
 		
 		

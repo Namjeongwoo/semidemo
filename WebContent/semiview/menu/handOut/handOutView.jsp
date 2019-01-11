@@ -174,14 +174,15 @@ td img {
 #commAdd{
 	border: 1px solid black;
 	width: 500px;
-	
+	height: 230px;
+
 	
 }
 
 /*댓글입력 텍스트필드*/
 #textInput  {
-	width: 400px;
-	height: 100px;
+	width: 480px;
+	height: 80px;
 }
 
 /*댓글 입력하면 띄우는 내용 DIV*/
@@ -192,6 +193,11 @@ td img {
 	
 }
 
+/*댓글 등록 닉네임 내용란 DIV*/
+#nicknameAndTextInputDIV{
+	float: left;
+	
+}
 /*댓글 등록 버튼 라벨*/
 #commInputBtnLabel{
 	display: inline-block;
@@ -203,14 +209,26 @@ td img {
 }
 
 #commInputBtn{
-	display: none;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+/*댓글입력 버튼 div*/
+#commBtnDIV {
+	
+	float: right;
 }
 
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<script type="text/javascript" src="../semiview/handOut/jquery.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 				//로그인 이미지 hover 적용
@@ -336,6 +354,17 @@ td img {
 				//댓글입력
 				$('#commInputBtn').on('click', function() {
 					$('[name=textInput]').val($('[name=textInput]').val().replace(/\n/gi,'<br/>'));
+					if($('#callImage').attr("src") == "../semiview/images/handout/call_on.png") {
+						//var imageSrc = $('#callImage').attr("src");
+						//alert(imageSrc);
+						$('#image').attr("value","call_on.png");
+						alert($('#image').val());
+					} else if($('#quesImage').attr("src") == "../semiview/images/handout/ques_on.png"){
+						//var imageSrc = $('#quesImage').attr("src");
+						//alert(imageSrc);
+						$('#image').attr("value","ques_on.png");
+						alert($('#image').val());
+					}
 					$('form').attr('action', 'commWrite.do');
 					$('form').submit();
 				});
@@ -449,17 +478,22 @@ td img {
 				</div>
 			</div>
 			<!-- 댓글 입력/댓글 내용 출력 -->
-			<div id="commDiv" style="clear: both;">
+			<div style="clear: both;"></div>
+			<div id="commDiv">
 
 				<!-- 댓글입력 -->
 				<div id="commAdd">
-					
+					<div id="nicknameAndTextInputDIV">
 					<input type="text" id="nickname" name="nickname" value="닉네임"/>
 					
 					<textarea id="textInput" name="textInput" placeholder="댓글을 입력해주세요"></textarea>
+					</div>	
+					<div id="commBtnDIV"">
+						<input type="image" id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/>
+						<input type="image" id="quesImage" name="quesImage" src="../semiview/images/handout/ques_off.png"/>
 						
-					<div id="commImagesDIV" style="float: right;">
-						<!--<input type="image" id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/> -->
+						<input type="hidden" id="image" name="image" value=""/>
+						
 						
 						<!-- <img id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/>
 						<img id="quesImage" name="quesImage" src="../semiview/images/handout/ques_off.png"/> -->
