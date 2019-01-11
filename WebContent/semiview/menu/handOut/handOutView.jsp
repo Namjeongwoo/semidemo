@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%
+	request.setCharacterEncoding("utf-8");
+	response.setContentType("text/html;charset=UTF-8");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -189,6 +192,20 @@ td img {
 	
 }
 
+/*댓글 등록 버튼 라벨*/
+#commInputBtnLabel{
+	display: inline-block;
+	background-image: url("../semiview/images/upload_off.png");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	width:100px;
+	height: 100px;
+}
+
+#commInputBtn{
+	display: none;
+}
+
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -277,7 +294,7 @@ td img {
 				     state = !state;   //first click make this true
 			     if(state){
 				     $(this).attr("src",$(this).attr("src").replace("off.png","on.png")); 
-				     $('#textInput').attr("placeholder","질문있습니다");
+				     $('#textInput').attr("placeholder","질문사항을 입력하여주세요");
 				     return false;
 
 			     }else {
@@ -436,31 +453,33 @@ td img {
 
 				<!-- 댓글입력 -->
 				<div id="commAdd">
+					
 					<input type="text" id="nickname" name="nickname" value="닉네임"/>
 					
 					<textarea id="textInput" name="textInput" placeholder="댓글을 입력해주세요"></textarea>
 						
-					<div id="commImagesDIV">
-						<input type="image" id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/>
-						<!-- <img id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/> -->
-						<img id="quesImage" name="quesImage" src="../semiview/images/handout/ques_off.png"/>
+					<div id="commImagesDIV" style="float: right;">
+						<!--<input type="image" id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/> -->
+						
+						<!-- <img id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/>
+						<img id="quesImage" name="quesImage" src="../semiview/images/handout/ques_off.png"/> -->
+						
+						<label for="commInputBtn" id="commInputBtnLabel"></label>
 						<input type="button" id="commInputBtn" name="commInputBtn" value="댓글입력"/>
 					</div>
 					</form>
 				</div>
 				
 				<!-- 댓글목록출력 -->
-				<p>댓글내용</p>
 				<c:forEach items="${requestScope.comm_dto}" var="comm_dto">
-					<div id="commContent">
+					<div id="commContent" style="clear: both;">
 						<div style="float: left;">
 							<img style="width:50px; height: 50px;" src="../semiview/images/handout/${comm_dto.image}"/>
 						</div>
 						<span>${comm_dto.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 						<span style="display: block; float: right;">${comm_dto.write_time}&nbsp;&nbsp;</span>
-						<div style="clear: both;">
 						<p>${comm_dto.content}</p>
-						</div>	
+						<div style="clear: both;"></div>	
 					</div>	
 				</c:forEach>
 			</div>
