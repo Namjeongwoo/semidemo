@@ -294,7 +294,7 @@ td img {
 			     $('#callImage').click(function(){
 				     state = !state;   //first click make this true
 			     if(state){
-				     $(this).attr("src",$(this).attr("src").replace("off.png","on.png")); 
+				     $(this).attr("src",$(this).attr("src").replace("off.png","on.png"));
 				     $('#textInput').attr("placeholder","카카오톡 아이디 또는 연락처를 남겨주세요");
 				     return false;
 
@@ -322,11 +322,39 @@ td img {
 				 }
 				    $(this).data('state', state); // save state
 							         
-				 });
+				 }); 
+				
 		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				 //call 이미지와 ques 이미지 변경 함수
+/* 				$('#callImage').click(function(){
+					//검은 callImage 이면
+					if($(this).attr("src") == "../semiview/images/handout/call_off.png"){
+						$(this).attr("src",$(this).attr("src").replace("off.png","on.png"));
+						return false;
+						
+					}else if($(this).attr("src") == "../semiview/images/handout/call_on.png"){
+						$(this).attr("src",$(this).attr("src").replace("on.png","off.png"));
+						$('#quesImage').attr("src","../semiview/images/handout/ques_off.png"));
+						return false;	
+					}
+				});
 	
+				$('#quesImage').click(function(){
+					//검은 quesImage 이면
+					if($(this).attr("src") == "../semiview/images/handout/ques_off.png"){
+						$(this).attr("src",$(this).attr("src").replace("off.png","on.png"));
+						return false;
+			
+					}else if($(this).attr("src") == "../semiview/images/handout/ques_on.png"){
+						$(this).attr("src",$(this).attr("src").replace("on.png","off.png"));
+						$('#callImage').attr("src","../semiview/images/handout/call_off.png"));
+						return false;
+					}
+				}); */
 //////////////////////////////////////////////////////////////////////////////////////////
-
+			
+////////////////////////////////////////////////////////////////////////////////////////////
 				//목록
 				$('#list').on('click', function() {
 					$('form').attr('action', 'handOut.do');
@@ -354,16 +382,12 @@ td img {
 				//댓글입력
 				$('#commInputBtn').on('click', function() {
 					$('[name=textInput]').val($('[name=textInput]').val().replace(/\n/gi,'<br/>'));
+					
 					if($('#callImage').attr("src") == "../semiview/images/handout/call_on.png") {
-						//var imageSrc = $('#callImage').attr("src");
-						//alert(imageSrc);
 						$('#image').attr("value","call_on.png");
-						alert($('#image').val());
+						
 					} else if($('#quesImage').attr("src") == "../semiview/images/handout/ques_on.png"){
-						//var imageSrc = $('#quesImage').attr("src");
-						//alert(imageSrc);
 						$('#image').attr("value","ques_on.png");
-						alert($('#image').val());
 					}
 					$('form').attr('action', 'commWrite.do');
 					$('form').submit();
