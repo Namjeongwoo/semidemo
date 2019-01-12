@@ -17,7 +17,7 @@ import semidemo.handOutAction.UpdateFormAction;
 import semidemo.handOutAction.UpdateProAction;
 import semidemo.handOutAction.ViewAction;
 import semidemo.handOutAction.WriteAction;
-
+import semidemo.handOutAction.commDeleteAction;
 import semidemo.handOutAction.commViewAction;
 import semidemo.handOutAction.commWriteAction;
 
@@ -136,6 +136,10 @@ public class semiMainController extends HttpServlet {
 			commWrite.execute(req, resp);
 			
 			resp.sendRedirect("handOutView.do?handout_post_num="+req.getParameter("handout_post_num"));
+		} else if (action.equals("/commDelete.do")) {
+			//상세 페이지 댓글 삭제
+			commDeleteAction commDelete = new commDeleteAction();
+			commDelete.execute(req, resp);
 		}
 
 		

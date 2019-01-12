@@ -290,7 +290,7 @@ td img {
 						}); */
 						
 			//전화 연락 이미지 클릭 이벤트---------------------------------------------------------------------
-			var state = $('#callImage').data('state'); //undefined
+			/* var state = $('#callImage').data('state'); //undefined
 			     $('#callImage').click(function(){
 				     state = !state;   //first click make this true
 			     if(state){
@@ -305,9 +305,9 @@ td img {
 				 }
 			    	 $(this).data('state', state); // save state
 					         
-				 });
+				 }); */
 			//물음표 질문 이미지 클릭 이벤트---------------------------------------------------------------------
-			var state = $('#quesImage').data('state'); //undefined
+			/* var state = $('#quesImage').data('state'); //undefined
 			     $('#quesImage').click(function(){
 				     state = !state;   //first click make this true
 			     if(state){
@@ -323,11 +323,11 @@ td img {
 				    $(this).data('state', state); // save state
 							         
 				 }); 
-				
+				 */
 		
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				 //call 이미지와 ques 이미지 변경 함수
-/* 				$('#callImage').click(function(){
+ 				$('#callImage').on('click',function(){
 					//검은 callImage 이면
 					if($(this).attr("src") == "../semiview/images/handout/call_off.png"){
 						$(this).attr("src",$(this).attr("src").replace("off.png","on.png"));
@@ -335,12 +335,12 @@ td img {
 						
 					}else if($(this).attr("src") == "../semiview/images/handout/call_on.png"){
 						$(this).attr("src",$(this).attr("src").replace("on.png","off.png"));
-						$('#quesImage').attr("src","../semiview/images/handout/ques_off.png"));
+						$('#quesImage').attr("src","../semiview/images/handout/ques_off.png");
 						return false;	
 					}
 				});
 	
-				$('#quesImage').click(function(){
+				$('#quesImage').on('click',function(){
 					//검은 quesImage 이면
 					if($(this).attr("src") == "../semiview/images/handout/ques_off.png"){
 						$(this).attr("src",$(this).attr("src").replace("off.png","on.png"));
@@ -348,10 +348,10 @@ td img {
 			
 					}else if($(this).attr("src") == "../semiview/images/handout/ques_on.png"){
 						$(this).attr("src",$(this).attr("src").replace("on.png","off.png"));
-						$('#callImage').attr("src","../semiview/images/handout/call_off.png"));
+						$('#callImage').attr("src","../semiview/images/handout/call_off.png");
 						return false;
 					}
-				}); */
+				});
 //////////////////////////////////////////////////////////////////////////////////////////
 			
 ////////////////////////////////////////////////////////////////////////////////////////////
