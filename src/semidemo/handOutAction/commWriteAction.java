@@ -19,7 +19,7 @@ public class commWriteAction {
 		//System.out.println("commWriteAction num: "+num);
 		//System.out.println("commWriteAction nickname: "+nickname);
 		//System.out.println("commWriteAction textInput: "+textInput);
-		System.out.println("commWriteAction image: "+image);
+		//System.out.println("commWriteAction image: "+image);
 		
 		Handout_commDAO dao = Handout_commDAO.getInstance();
 		Handout_commDTO dto = new Handout_commDTO();

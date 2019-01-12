@@ -118,5 +118,29 @@ public class Handout_commDAO {
 			e.printStackTrace();
 		}
 	}
-   }
+   }//end comm_insertMethod()//////////////////////////////////
+   
+   public void comm_deleteMethod(int comm_num) {
+	   try {
+		conn = init();
+		System.out.println("comm_deleteMethod DB 연결 성공 / 댓글 삭제 맨위에 댓글만 삭제된다.");
+		String sql = "delete from handout_comm where handout_comm_num=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, comm_num);
+		pstmt.executeUpdate();
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		try {
+			exit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+   }//end comm_deleteMethod()//////////////////////
 }//end class

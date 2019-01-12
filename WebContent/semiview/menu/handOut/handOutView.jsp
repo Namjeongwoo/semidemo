@@ -392,6 +392,12 @@ td img {
 					$('form').attr('action', 'commWrite.do');
 					$('form').submit();
 				});
+				
+				//댓글삭제
+				$('#commDeleteBtn').on('click', function() {
+					$('form').attr('action', 'commDelete.do');
+					$('form').submit();
+				});
 
 			});
 </script>
@@ -525,7 +531,7 @@ td img {
 						<label for="commInputBtn" id="commInputBtnLabel"></label>
 						<input type="button" id="commInputBtn" name="commInputBtn" value="댓글입력"/>
 					</div>
-					</form>
+					
 				</div>
 				
 				<!-- 댓글목록출력 -->
@@ -537,10 +543,14 @@ td img {
 						<span>${comm_dto.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 						<span style="display: block; float: right;">${comm_dto.write_time}&nbsp;&nbsp;</span>
 						<p>${comm_dto.content}</p>
+						<input type="hidden" name="handout_comm_num" value="${comm_dto.handout_comm_num}"/>
+						<input type="button" id="commDeleteBtn" name="commDeleteBtn" value="댓글삭제"/>
 						<div style="clear: both;"></div>	
 					</div>	
 				</c:forEach>
+				
 			</div>
+				</form>
 			</div>
 		</div>
 	
