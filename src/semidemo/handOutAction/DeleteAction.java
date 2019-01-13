@@ -15,13 +15,13 @@ public class DeleteAction {
 		Handout_postDAO dao = Handout_postDAO.getInstance();
 		
 		//넘어오는 handout_post_num 값 받아온다.
-		int num = Integer.parseInt(req.getParameter("handout_post_num"));
+		int handout_post_num = Integer.parseInt(req.getParameter("handout_post_num"));
 		//메인 이미지 삭제
-		String main_filename = dao.fileMethod(num);
+		String main_filename = dao.fileMethod(handout_post_num);
 		//서브 이미지 삭제
-		String sub_filename1 = dao.fileMethod1(num);
-		String sub_filename2 = dao.fileMethod2(num);
-		String sub_filename3 = dao.fileMethod3(num);
+		String sub_filename1 = dao.fileMethod1(handout_post_num);
+		String sub_filename2 = dao.fileMethod2(handout_post_num);
+		String sub_filename3 = dao.fileMethod3(handout_post_num);
 		
 		if(main_filename != null) {
 			//파일네임이 0이 아니면 첨부파일이 있는 경우, 첨부파일 먼저 삭제한다.
@@ -47,7 +47,16 @@ public class DeleteAction {
 			file3.delete();
 		}
 		
+		
+		//////////////////////////////////////////////////////////
+		// handout_post_num 가지고 해당 게시물의 댓글 전체 삭제.
+		dao.comm_allDeleteMethod(handout_post_num);
+		
+		
+		//////////////////////////////////////////////////////////
+	
+		
 		//첨부파일 삭제 완료한 경우 handout_post_num 에 해당하는 레코드 값을 삭제한다.
-		dao.deleteMethod(num);
+		dao.deleteMethod(handout_post_num);
 	}
 }

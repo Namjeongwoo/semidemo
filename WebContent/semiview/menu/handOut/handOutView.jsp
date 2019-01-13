@@ -144,7 +144,7 @@
 
 /*---------------------------게시글 css --------------------------------------*/
 #inputContent {
-	background-color: gray;
+	
 	width: 1000px;
 	height: 500px;
 	margin: auto;
@@ -166,7 +166,7 @@ td img {
 
 /*등록/삭제/수정/취소 버튼 DIV*/
 #buttonGroup {
-	background-color: gray;
+	
 	float: right;
 }
 
@@ -331,11 +331,11 @@ td img {
 					//검은 callImage 이면
 					if($(this).attr("src") == "../semiview/images/handout/call_off.png"){
 						$(this).attr("src",$(this).attr("src").replace("off.png","on.png"));
+						$('#quesImage').attr("src","../semiview/images/handout/ques_off.png");
 						return false;
 						
 					}else if($(this).attr("src") == "../semiview/images/handout/call_on.png"){
 						$(this).attr("src",$(this).attr("src").replace("on.png","off.png"));
-						$('#quesImage').attr("src","../semiview/images/handout/ques_off.png");
 						return false;	
 					}
 				});
@@ -344,11 +344,11 @@ td img {
 					//검은 quesImage 이면
 					if($(this).attr("src") == "../semiview/images/handout/ques_off.png"){
 						$(this).attr("src",$(this).attr("src").replace("off.png","on.png"));
+						$('#callImage').attr("src","../semiview/images/handout/call_off.png");
 						return false;
 			
 					}else if($(this).attr("src") == "../semiview/images/handout/ques_on.png"){
 						$(this).attr("src",$(this).attr("src").replace("on.png","off.png"));
-						$('#callImage').attr("src","../semiview/images/handout/call_off.png");
 						return false;
 					}
 				});
@@ -367,11 +367,12 @@ td img {
 					$('form').submit();
 				});
 
-				//삭제
+				// 게시물삭제
 				$('#del').on('click', function() {
+					alert($('#handout_post_num').val());
 					$('form').attr('action', 'handOutDelete.do');
 					$('form').submit();
-				});
+				});	
 				
 				//취소
 				$('#cancel').on('click', function() {
@@ -393,11 +394,22 @@ td img {
 					$('form').submit();
 				});
 				
+				//var handout_comm_num = $('#handout_comm_num').val();
 				//댓글삭제
-				$('#commDeleteBtn').on('click', function() {
+				$('input[id^="commDeleteBtn"]').click(function(){
+					var handout_comm_num = $(this).prev().val();
+					
+					$('form').attr('action', 'commDelete.do?handout_comm_num='+handout_comm_num);
+					$('form').submit();
+					
+					
+				});
+				
+				/* $('input[id^="commDeleteBtn"]').on('click', function() {
+					alert($('#handout_comm_num').val());
 					$('form').attr('action', 'commDelete.do');
 					$('form').submit();
-				});
+				}); */
 
 			});
 </script>
@@ -496,9 +508,9 @@ td img {
 				</table>
 				<div id="buttonGroup">
 					<form name="frm" method="POST">
-						<input type="hidden" name="handout_post_num" value="${dto.handout_post_num}" /> 
-						<input type="hidden" name="pageNum" value="${param.pageNum}" /> 
-						
+						<input type="hidden" name="handout_post_num" value="${dto.handout_post_num}" id="handout_post_num"/> 
+						<input type="hidden" name="pageNum" value="${param.pageNum}" id="pageNum"/> 
+					
 						<input type="button" id="list" name="list" value="목록" /> 
 						<input type="button" id="update" name="update" value="수정" /> 
 						<input type="button" id="del" name="del" value="삭제" />
@@ -543,15 +555,16 @@ td img {
 						<span>${comm_dto.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 						<span style="display: block; float: right;">${comm_dto.write_time}&nbsp;&nbsp;</span>
 						<p>${comm_dto.content}</p>
-						<input type="hidden" name="handout_comm_num" value="${comm_dto.handout_comm_num}"/>
+						<input type="hidden" id="handout_comm_num" name="handout_comm_num" value="${comm_dto.handout_comm_num}"/>
+						
 						<input type="button" id="commDeleteBtn" name="commDeleteBtn" value="댓글삭제"/>
 						<div style="clear: both;"></div>	
 					</div>	
 				</c:forEach>
-				
 			</div>
 				</form>
 			</div>
+				
 		</div>
 	
 	<a href="login.do"><img id="loginBtn"

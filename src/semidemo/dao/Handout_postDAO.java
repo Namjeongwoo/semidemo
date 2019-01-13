@@ -389,12 +389,12 @@ public class Handout_postDAO {
 	}
 	
 	//삭제하기
-	public void deleteMethod(int num) {
+	public void deleteMethod(int handout_post_num) {
 		try {
 			conn = init();
 			String sql = "delete from handout_post where handout_post_num = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, handout_post_num);
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -411,5 +411,30 @@ public class Handout_postDAO {
 			}
 		}
 	}
+	
+	
+	  public void comm_allDeleteMethod(int handout_post_num) {
+		   try {
+			conn = init();
+			String sql = "delete from handout_comm where handout_post_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, handout_post_num);
+			pstmt.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				exit();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	   }//end comm_deleteMethod()//////////////////////
+	
 	
 }// end class

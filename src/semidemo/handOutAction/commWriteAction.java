@@ -9,8 +9,8 @@ import semidemo.dto.Handout_commDTO;
 
 public class commWriteAction {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
-		
-		
+		int currentPage = Integer.parseInt(req.getParameter("pageNum"));
+		req.setAttribute("pageNum", currentPage);
 		int num = Integer.parseInt(req.getParameter("handout_post_num"));
 		String nickname = req.getParameter("nickname");
 		String textInput = req.getParameter("textInput");

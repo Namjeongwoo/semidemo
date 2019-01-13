@@ -125,6 +125,7 @@ public class semiMainController extends HttpServlet {
 		
 		} else if (action.equals("/handOutDelete.do")) {
 			DeleteAction delete = new DeleteAction();
+			
 			delete.execute(req, resp);
 			
 			//현재 페이지값을 넘겨주면서, 상품 리스트로 이동.
@@ -135,14 +136,14 @@ public class semiMainController extends HttpServlet {
 			commWriteAction commWrite = new commWriteAction();
 			commWrite.execute(req, resp);
 			
-			resp.sendRedirect("handOutView.do?handout_post_num="+req.getParameter("handout_post_num"));
+			resp.sendRedirect("handOutView.do?handout_post_num="+req.getParameter("handout_post_num")+"&pageNum="+req.getParameter("pageNum"));
 			
 		} else if (action.equals("/commDelete.do")) {
 			//상세 페이지 댓글 삭제
 			commDeleteAction commDelete = new commDeleteAction();
 			commDelete.execute(req, resp);
 			
-			resp.sendRedirect("handOutView.do?handout_post_num="+req.getParameter("handout_post_num"));
+			resp.sendRedirect("handOutView.do?handout_post_num="+req.getParameter("handout_post_num")+"&pageNum="+req.getParameter("pageNum"));
 			//path = "/semiview/menu/handOut/handOutView.jsp";
 		}
 
