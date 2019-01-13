@@ -14,7 +14,6 @@ import semidemo.dto.PageDTO;
 public class ListAction {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		String pageNum = req.getParameter("pageNum");
-		System.out.println("ListAction에서 execute pageNum = "+pageNum);
 		if(pageNum==null || pageNum.equals("null")) {
 			pageNum="1";
 		}

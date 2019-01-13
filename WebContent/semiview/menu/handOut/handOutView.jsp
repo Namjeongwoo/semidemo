@@ -260,70 +260,6 @@ td img {
 											"off.png"));
 						});
 				
-				//call 이미지 호버 적용
-				/* $('#callImage').hover(
-						function() {
-							$(this).attr(
-									"src",
-									$(this).attr("src").replace("off.png",
-											"on.png"));
-						},
-						function() {
-							$(this).attr(
-									"src",
-									$(this).attr("src").replace("on.png",
-											"off.png"));
-						}); */
-				
-				//quesImage 이미지 hover 적용
-				
-			/* 	$('#quesImage').hover(function() {
-							$(this).attr(
-									"src",
-									$(this).attr("src").replace("off.png",
-											"on.png"));
-						},function() {
-							$(this).attr(
-									"src",
-									$(this).attr("src").replace("on.png",
-											"off.png"));
-						}); */
-						
-			//전화 연락 이미지 클릭 이벤트---------------------------------------------------------------------
-			/* var state = $('#callImage').data('state'); //undefined
-			     $('#callImage').click(function(){
-				     state = !state;   //first click make this true
-			     if(state){
-				     $(this).attr("src",$(this).attr("src").replace("off.png","on.png"));
-				     $('#textInput').attr("placeholder","카카오톡 아이디 또는 연락처를 남겨주세요");
-				     return false;
-
-				 }else {
-				 	$(this).attr("src",$(this).attr("src").replace("on.png","off.png")); 
-				 	$('#textInput').attr("placeholder","댓글을 입력해주세요");
-				 	return false;
-				 }
-			    	 $(this).data('state', state); // save state
-					         
-				 }); */
-			//물음표 질문 이미지 클릭 이벤트---------------------------------------------------------------------
-			/* var state = $('#quesImage').data('state'); //undefined
-			     $('#quesImage').click(function(){
-				     state = !state;   //first click make this true
-			     if(state){
-				     $(this).attr("src",$(this).attr("src").replace("off.png","on.png")); 
-				     $('#textInput').attr("placeholder","질문사항을 입력하여주세요");
-				     return false;
-
-			     }else {
-				  	$(this).attr("src",$(this).attr("src").replace("on.png","off.png")); 
-				  	$('#textInput').attr("placeholder","댓글을 입력해주세요");
-				  	return false;
-				 }
-				    $(this).data('state', state); // save state
-							         
-				 }); 
-				 */
 		
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				 //call 이미지와 ques 이미지 변경 함수
@@ -413,6 +349,8 @@ td img {
 
 			});
 </script>
+
+<script type="text/javascript" src="../semiview/menu/handOut/jquery.js"></script>
 </head>
 <body>
 <jsp:scriptlet>
@@ -547,8 +485,24 @@ td img {
 				</div>
 				
 				<!-- 댓글목록출력 -->
-				<c:forEach items="${requestScope.comm_dto}" var="comm_dto">
-					<div id="commContent" style="clear: both;">
+				
+				<!-- ajax를 사용해보자!! 두둥ㅡ!! -->
+				
+				<div id="commContent" style="clear: both;">
+					<script type="text/javascript">
+						listView()
+					</script>
+				</div>
+
+
+
+				<div id="commContent" style="clear: both;">
+					<div></div>
+
+				</div>
+				
+				
+				<%-- <c:forEach items="${requestScope.comm_dto}" var="comm_dto">
 						<div style="float: left;">
 							<img style="width:50px; height: 50px;" src="../semiview/images/handout/${comm_dto.image}"/>
 						</div>
@@ -560,7 +514,11 @@ td img {
 						<input type="button" id="commDeleteBtn" name="commDeleteBtn" value="댓글삭제"/>
 						<div style="clear: both;"></div>	
 					</div>	
-				</c:forEach>
+				</c:forEach> --%>
+				
+				
+				
+				
 			</div>
 				</form>
 			</div>

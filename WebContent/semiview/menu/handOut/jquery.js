@@ -1,3 +1,69 @@
+function listView() {
+	var handout_post_num = $('#handout_post_num').val();
+
+	$.ajax({
+		type : 'POST',
+		dataType : 'text',
+		url : 'handOutCommentList',
+		data : {
+			handout_post_num : handout_post_num
+		},
+		success : show,
+		error : function() {
+			alert("퇴각하라!!!");
+		}
+
+	});
+
+}
+
+function show(comment) {
+/*
+	//댓글 리스트 응답.
+	function viewMessage(res){
+		//CommentListController 의 out.print(arr); 값을 res 로 받는다.
+		//alert(res); //확인할때는 위에 dataType을 text로 변경해서 확인해본다.
+		for (index in res){
+			var div = $('<div></div>'); //div 생성.
+			$('#commentList').append(div); //새로 만든 div 추가
+			var p1 = $('<p>'+res[index].col+'</p>');
+			$(div).append(p1);
+			var p2 = $('<p>'+res[index].content+'</p>');
+			$(div).append(p2);
+			var inputupdate = $('<input type="button" value="수정"/>');
+			$(div).append(inputupdate);
+			var inputdelete = $('<input type="button" value="삭제"/>');
+			$(div).append(inputdelete);
+		}
+	};//end viewMessage()///////
+	*/	
+	
+	
+
+	for (index in comment) {
+		var div = $('<div style="float: left;"></div>');
+		$('#commContent').append(div);
+		
+		var img = $('<img style="width:50px; height: 50px;" src="../semiview/images/handout/'+(comment[index].image)+'"/>');
+		$(div).append(img);
+	}
+
+}
+
+
+
+
+
+
+
+//  심해 입장.
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 /*var titleNum; //다른 리스트에서 참조되어야 하기 때문에 전역변수로 선언.
 
