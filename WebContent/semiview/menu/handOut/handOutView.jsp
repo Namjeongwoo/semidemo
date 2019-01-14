@@ -332,10 +332,8 @@ td img {
 					
 				});
 				
-				//var handout_comm_num = $('#handout_comm_num').val();
-				
-				
-				//댓글삭제
+								
+				/* //댓글삭제
 				$('input[id^="commDeleteBtn"]').click(function(){
 					var handout_comm_num = $(this).prev().val();
 					
@@ -343,12 +341,6 @@ td img {
 					$('form').submit();
 					
 					
-				});
-				
-				/* $('input[id^="commDeleteBtn"]').on('click', function() {
-					alert($('#handout_comm_num').val());
-					$('form').attr('action', 'commDelete.do');
-					$('form').submit();
 				}); */
 				
 				//댓글 수정 버튼
@@ -358,39 +350,53 @@ td img {
 					//alert(selEle.html());
 					//var comm_content = selEle.children('p:nth-child(1)').text(); // 댓글 내용
 					//alert(comm_content);
-					
-					
-					
-					alert();
-					
+										
 					selEle.children('textarea').val(comm_content); // 기존에 댓글을 textarea 에 넣는다.
 					selEle.children('div[class="tfDiv"]').css({'display':'block'}); //댓글 수정 창 띄우기
 					return false;	
 
 				});
-				//댓글 수정 버튼 누를 시 뜨는 버튼
+				//댓글 수정 버튼 누를 시 초록색 체크 버튼
 				$(document).on('click','[id="inputUpdate"]', function(){
 					var topselEle = $(this).parents(); // 수정 버튼 가장 위의 부모요소를 가지고 온다.
 					var childselEle = $(this).parent(); //수정 버튼 부모요소 div 요소 가지고 온다
-					alert(topselEle.html());
 					
-					
-					//var handout_comm_num = topselEle.children('input[name="handout_comm_num"]').val();
+					//input type="hidden" 으로 된 handout_post_num 의 value 값을 변수에 저장한다.					
 					var handout_post_num = $('#handout_post_num').val();
-					alert(handout_post_num);
 					
+					
+					//inputUpdate에 value 값을 handout_comm_num 변수에 저장한다.
 					var handout_comm_num = $(this).val();
-					alert("handout_comm_num :"+ handout_comm_num);
 					
+					
+					//댓글 수정 textarea 에서 입력한 값을 변수에 저장한다.
 					var comm_content = childselEle.children('textarea').val();
-					alert(comm_content);
 					
-					
+					//초록색 체크 버튼 누를시에 다시 댓글 수정 textarea 와 초록색 버튼 숨기기.
 					topselEle.children('div[class="tfDiv"]').css({'display':'none'});
 					
+					//ajax 처리를 위해 매개 변수를 받아 넘겨준다.
 					UpdateHandOutComment(handout_comm_num, comm_content, handout_post_num);
 					
+					return false;
+					
 				});
+				
+				//댓글삭제 버튼
+				$(document).on('click','[value="댓글삭제"]', function(){
+					alert('댓글삭제버튼 클릭');
+					var selEle = $(this).next(); //댓글삭제 다음에 위치한 handout_comm_num 값을 가지고 와서 변수에 넣는다.
+					alert(selEle.val());
+					
+					var handout_post_num = $('#handout_post_num').val();
+					alert(handout_post_num);
+					var handout_comm_num = selEle.val();
+					alert(handout_comm_num);
+					
+					DeleteHandOutComment(handout_comm_num, handout_post_num);
+					
+					return false;
+				})
 
 			});
 </script>
@@ -510,7 +516,7 @@ td img {
 				
 				<!-- ajax를 사용해보자!! 두둥ㅡ!! -->
 				
-				<div id="commContent" style="clear: both; overflow:scroll;"">
+				<div id="commContent" style="clear: both; overflow: auto;">
 					<script type="text/javascript">
 						listView("${requestScope.dto.handout_post_num}")
 					</script>

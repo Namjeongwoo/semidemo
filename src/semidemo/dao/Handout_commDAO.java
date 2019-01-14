@@ -119,13 +119,14 @@ public class Handout_commDAO {
 	}
    }//end comm_insertMethod()//////////////////////////////////
    
-   public void comm_deleteMethod(int comm_num) {
+   public void comm_deleteMethod(int handout_comm_num) {
 	   try {
 		conn = init();
 		String sql = "delete from handout_comm where handout_comm_num=?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, comm_num);
+		pstmt.setInt(1, handout_comm_num);
 		pstmt.executeUpdate();
+		conn.commit();
 	} catch (ClassNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
