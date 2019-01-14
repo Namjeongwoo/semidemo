@@ -104,8 +104,8 @@ public class semiMainController extends HttpServlet {
 			view.execute(req, resp);
 			
 			//상세 페이지에서 그동안 입력된 댓글 보여준다.
-			commViewAction commList = new commViewAction();
-			commList.execute(req, resp);
+			//commViewAction commList = new commViewAction();
+			//commList.execute(req, resp);
 			
 			path = "/semiview/menu/handOut/handOutView.jsp";
 
@@ -133,8 +133,8 @@ public class semiMainController extends HttpServlet {
 		
 		} else if (action.equals("/commWrite.do")) {
 			//상세 페이지 댓글 입력
-			commWriteAction commWrite = new commWriteAction();
-			commWrite.execute(req, resp);
+			//commWriteAction commWrite = new commWriteAction();
+			//commWrite.execute(req, resp);
 			
 			resp.sendRedirect("handOutView.do?handout_post_num="+req.getParameter("handout_post_num")+"&pageNum="+req.getParameter("pageNum"));
 			

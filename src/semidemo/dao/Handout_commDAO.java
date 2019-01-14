@@ -141,4 +141,31 @@ public class Handout_commDAO {
 		}
 	}
    }//end comm_deleteMethod()//////////////////////
+   
+   public void comm_UpdateMethod(int handout_comm_num, String comm_content) {
+	   try {
+		conn = init();
+		System.out.println("comm_UpdateMethod DB 연결 성공");
+		System.out.println(comm_content);
+		String sql = "update handout_comm set content=? where handout_comm_num=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, comm_content);
+		pstmt.setInt(2, handout_comm_num);
+		pstmt.executeUpdate();
+		
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		try {
+			exit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+   }
 }//end class

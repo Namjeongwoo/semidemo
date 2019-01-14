@@ -180,7 +180,7 @@ td img {
 }
 
 /*댓글입력 텍스트필드*/
-#textInput  {
+#comment_content  {
 	width: 480px;
 	height: 80px;
 }
@@ -188,7 +188,7 @@ td img {
 /*댓글 입력하면 띄우는 내용 DIV*/
 #commContent {
 	border: 1px solid black;
-	width: 500px;
+	width: 600px;
 	
 	
 }
@@ -326,11 +326,15 @@ td img {
 					} else if($('#quesImage').attr("src") == "../semiview/images/handout/ques_on.png"){
 						$('#image').attr("value","ques_on.png");
 					}
-					$('form').attr('action', 'commWrite.do');
-					$('form').submit();
+					
+					insertHandOutComment();  //댓글입력 function()
+					//listView("${requestScope.dto.handout_post_num}"); //댓글 리스트 출력 function()
+					
 				});
 				
 				//var handout_comm_num = $('#handout_comm_num').val();
+				
+				
 				//댓글삭제
 				$('input[id^="commDeleteBtn"]').click(function(){
 					var handout_comm_num = $(this).prev().val();
@@ -346,6 +350,47 @@ td img {
 					$('form').attr('action', 'commDelete.do');
 					$('form').submit();
 				}); */
+				
+				//댓글 수정 버튼
+				$(document).on('click','[value="댓글수정"]', function(){
+					
+					var selEle = $(this).parents(); //댓글수정 버튼 부모요소 div 요소를 가지고온다.
+					//alert(selEle.html());
+					//var comm_content = selEle.children('p:nth-child(1)').text(); // 댓글 내용
+					//alert(comm_content);
+					
+					
+					
+					alert();
+					
+					selEle.children('textarea').val(comm_content); // 기존에 댓글을 textarea 에 넣는다.
+					selEle.children('div[class="tfDiv"]').css({'display':'block'}); //댓글 수정 창 띄우기
+					return false;	
+
+				});
+				//댓글 수정 버튼 누를 시 뜨는 버튼
+				$(document).on('click','[id="inputUpdate"]', function(){
+					var topselEle = $(this).parents(); // 수정 버튼 가장 위의 부모요소를 가지고 온다.
+					var childselEle = $(this).parent(); //수정 버튼 부모요소 div 요소 가지고 온다
+					alert(topselEle.html());
+					
+					
+					//var handout_comm_num = topselEle.children('input[name="handout_comm_num"]').val();
+					var handout_post_num = $('#handout_post_num').val();
+					alert(handout_post_num);
+					
+					var handout_comm_num = $(this).val();
+					alert("handout_comm_num :"+ handout_comm_num);
+					
+					var comm_content = childselEle.children('textarea').val();
+					alert(comm_content);
+					
+					
+					topselEle.children('div[class="tfDiv"]').css({'display':'none'});
+					
+					UpdateHandOutComment(handout_comm_num, comm_content, handout_post_num);
+					
+				});
 
 			});
 </script>
@@ -457,23 +502,35 @@ td img {
 					
 				</div>
 			</div>
-			<!-- 댓글 입력/댓글 내용 출력 -->
-			<div style="clear: both;"></div>
+					</form>
+			<!-- 댓글 입력/댓글 내용 출력 -->	
+			
+
+				<!-- 댓글목록출력 -->
+				
+				<!-- ajax를 사용해보자!! 두둥ㅡ!! -->
+				
+				<div id="commContent" style="clear: both; overflow:scroll;"">
+					<script type="text/javascript">
+						listView("${requestScope.dto.handout_post_num}")
+					</script>
+				</div>
 			<div id="commDiv">
+
 
 				<!-- 댓글입력 -->
 				<div id="commAdd">
 					<div id="nicknameAndTextInputDIV">
 					<input type="text" id="nickname" name="nickname" value="닉네임"/>
 					
-					<textarea id="textInput" name="textInput" placeholder="댓글을 입력해주세요"></textarea>
+					<textarea id="comment_content" name="textInput" placeholder="댓글을 입력해주세요"></textarea>
 					</div>	
 					<div id="commBtnDIV"">
 						<input type="image" id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/>
 						<input type="image" id="quesImage" name="quesImage" src="../semiview/images/handout/ques_off.png"/>
 						
 						<input type="hidden" id="image" name="image" value=""/>
-						
+						<input type="hidden" name="handout_post_num" value="${dto.handout_post_num}" id="handout_post_num"/>
 						
 						<!-- <img id="callImage" name="callImage" src="../semiview/images/handout/call_off.png"/>
 						<img id="quesImage" name="quesImage" src="../semiview/images/handout/ques_off.png"/> -->
@@ -484,43 +541,16 @@ td img {
 					
 				</div>
 				
-				<!-- 댓글목록출력 -->
-				
-				<!-- ajax를 사용해보자!! 두둥ㅡ!! -->
-				
-				<div id="commContent" style="clear: both;">
-					<script type="text/javascript">
-						listView()
-					</script>
-				</div>
-
-
-
-				<div id="commContent" style="clear: both;">
-					<div></div>
-
-				</div>
-				
-				
-				<%-- <c:forEach items="${requestScope.comm_dto}" var="comm_dto">
-						<div style="float: left;">
-							<img style="width:50px; height: 50px;" src="../semiview/images/handout/${comm_dto.image}"/>
-						</div>
-						<span>${comm_dto.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-						<span style="display: block; float: right;">${comm_dto.write_time}&nbsp;&nbsp;</span>
-						<p>${comm_dto.content}</p>
-						<input type="hidden" id="handout_comm_num" name="handout_comm_num" value="${comm_dto.handout_comm_num}"/>
-						
-						<input type="button" id="commDeleteBtn" name="commDeleteBtn" value="댓글삭제"/>
-						<div style="clear: both;"></div>	
-					</div>	
-				</c:forEach> --%>
-				
-				
+				<!-- 댓글수정 -->
+				<%-- <div id="divUpdate">
+					<input type="hidden" id="handout_comm_num" value="${dto.handout_post_num}"/>
+					<textarea id="comm_content" rows="10" cols="20"></textarea>		
+					<input type="button" id="commBtnUpdate" value="댓글수정"/>	
+				</div> --%>
 				
 				
 			</div>
-				</form>
+				
 			</div>
 				
 		</div>
