@@ -305,7 +305,7 @@ td img {
 
 				// 게시물삭제
 				$('#del').on('click', function() {
-					alert($('#handout_post_num').val());
+					
 					$('form').attr('action', 'handOutDelete.do');
 					$('form').submit();
 				});	
@@ -333,23 +333,14 @@ td img {
 				});
 				
 								
-				/* //댓글삭제
-				$('input[id^="commDeleteBtn"]').click(function(){
-					var handout_comm_num = $(this).prev().val();
-					
-					$('form').attr('action', 'commDelete.do?handout_comm_num='+handout_comm_num);
-					$('form').submit();
-					
-					
-				}); */
-				
+							
 				//댓글 수정 버튼
 				$(document).on('click','[value="댓글수정"]', function(){
 					
 					var selEle = $(this).parents(); //댓글수정 버튼 부모요소 div 요소를 가지고온다.
-					//alert(selEle.html());
+					
 					//var comm_content = selEle.children('p:nth-child(1)').text(); // 댓글 내용
-					//alert(comm_content);
+					
 										
 					selEle.children('textarea').val(comm_content); // 기존에 댓글을 textarea 에 넣는다.
 					selEle.children('div[class="tfDiv"]').css({'display':'block'}); //댓글 수정 창 띄우기
@@ -384,14 +375,15 @@ td img {
 				
 				//댓글삭제 버튼
 				$(document).on('click','[value="댓글삭제"]', function(){
-					alert('댓글삭제버튼 클릭');
-					var selEle = $(this).next(); //댓글삭제 다음에 위치한 handout_comm_num 값을 가지고 와서 변수에 넣는다.
-					alert(selEle.val());
+					
+					//댓글삭제 다음에 위치한 handout_comm_num 값을 가지고 와서 변수에 넣는다.
+					var selEle = $(this).next(); 
+					
 					
 					var handout_post_num = $('#handout_post_num').val();
-					alert(handout_post_num);
+					
 					var handout_comm_num = selEle.val();
-					alert(handout_comm_num);
+					
 					
 					DeleteHandOutComment(handout_comm_num, handout_post_num);
 					

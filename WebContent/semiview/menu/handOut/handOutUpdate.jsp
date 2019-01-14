@@ -258,12 +258,6 @@ textarea {
 											"off.png"));
 						});
 
-				//파일 선택 시 메인 이미지 글쓰기 화면에서 보여주기.
-				var myfile = $('#file').prop('files');
-				$('#fileSelect').click(function() {
-					$('#mainImage').attr("src", $(this).attr("src"));
-				});
-
 				//등록 버튼 이미지 hover 적용
 				$('#uploadImage').hover(
 						function() {
@@ -295,11 +289,171 @@ textarea {
 						});
 				
 				//등록버튼 서브밋 이벤트.
-				$('#upload').click(function(){
+				$('form').on('submit', function(){
 					$('[name=contents]').val($('[name=contents]').val().replace(/\n/gi,'<br/>'));
+					//제목, 내용 빈칸일시 alert
+			         var title = $('#title').val();
+			         if (title == "") {
+			            alert("제목을 입력하세요");
+			            return false;
+			         }
+
+			         var contents = $('#contents').val();
+			         if (contents == "") {
+			            alert("내용을 입력하세요!");
+			            return false;
+			         }
+			         //지역 콤보박스
+			         var area = $('#area').val();
+			         if (area == "지역별") {
+				            alert("지역을 입력하세요");
+				            return false;
+				         }
+			         //종류 콤보박스
+			         var type = $('#kinds').val();
+			         if (type == "종류") {
+				            alert("종류를 입력하세요");
+				            return false;
+				         }
+			         //사용기간 콤보박스
+			         var term = $('#useTerm').val();
+			         if (term == "사용기간") {
+				            alert("사용기간을 입력하세요");
+				            return false;
+				         }
+			         //상품상태 콤보박스
+			         var condition = $('#itemCondition').val();
+			         if (condition == "상품상태") {
+				            alert("상품상태를 입력하세요");
+				            return false;
+			         }
+											
 				});
 				
-			
+				//mainfile 요소에서 change 이벤트가 발생하면,
+				$('#mainfile').on('change', function(){
+					alert($('#mainfile').val());
+					var str = $('#mainfile').val();
+					
+					//제한 두기
+					//이미지 첨부파일인지 체크
+					//정규화 표현식 이용
+					var patt = /(.jpg$|.gif$|.png$|.PNG$)/g;
+					var result = str.match(patt);
+					
+					if(!result){
+						//null이면
+						alert('jpg, gif, png만 가능합니다.');
+						$('#mainfile').val(''); //초기화를 시켜줌
+						$('#mainImage').attr('src',"../semiview/images/camera.png");
+						
+						return false;
+					}
+					if(this.files && this.files[0]){
+						if(this.files[0].size > 1000000){
+							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+							$('#mainfile').val('');
+							return false;
+						}
+					}
+					
+					//파일 읽어와서 카메라 모양 잡힌곳에 넣어주기.
+					//파일을 읽기 위한 filereader 객체생성
+					var reader = new FileReader();
+					//file 내용을 읽어 dataURL 형식의 문자열로 저장.
+					reader.readAsDataURL(this.files[0]);
+					
+					//파일 읽기 성공시 호출되는 이벤트 핸들러
+					reader.onload = function(e){
+						$('#mainImage').attr("src", e.target.result);
+					};
+					
+				});
+				
+				//이미지1 요소에서 change 이벤트가 발생하면,
+				$('#file1').on('change', function(){
+					var str = $('#file1').val();
+					
+					//제한 두기
+					//이미지 첨부파일인지 체크
+					//정규화 표현식 이용
+					var patt = /(.jpg$|.gif$|.png$|.PNG$)/g;
+					var result = str.match(patt);
+					
+					if(!result){
+						//null이면
+						alert('jpg, gif, png만 가능합니다.');
+						$('#file1').val(''); //초기화를 시켜줌
+						
+						
+						return false;
+					}
+					if(this.files && this.files[0]){
+						if(this.files[0].size > 1000000){
+							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+							$('#file1').val('');
+							return false;
+						}
+					}
+				});
+				
+				//이미지2 요소에서 change 이벤트가 발생하면,
+				$('#file2').on('change', function(){
+					var str = $('#file2').val();
+					
+					//제한 두기
+					//이미지 첨부파일인지 체크
+					//정규화 표현식 이용
+					var patt = /(.jpg$|.gif$|.png$|.PNG$)/g;
+					var result = str.match(patt);
+					
+					if(!result){
+						//null이면
+						alert('jpg, gif, png만 가능합니다.');
+						$('#file2').val(''); //초기화를 시켜줌
+						
+						
+						return false;
+					}
+					if(this.files && this.files[0]){
+						if(this.files[0].size > 1000000){
+							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+							$('#file2').val('');
+							return false;
+						}
+					}
+				});
+				
+				//이미지3 요소에서 change 이벤트가 발생하면,
+				$('#file3').on('change', function(){
+					var str = $('#file3').val();
+					
+					//제한 두기
+					//이미지 첨부파일인지 체크
+					//정규화 표현식 이용
+					var patt = /(.jpg$|.gif$|.png$|.PNG$)/g;
+					var result = str.match(patt);
+					
+					if(!result){
+						//null이면
+						alert('jpg, gif, png만 가능합니다.');
+						$('#file3').val(''); //초기화를 시켜줌
+						
+						
+						return false;
+					}
+					if(this.files && this.files[0]){
+						if(this.files[0].size > 1000000){
+							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+							$('#file3').val('');
+							return false;
+						}
+					}
+				});
+					
+				
+				
+				
 
 			
 			});
@@ -401,7 +555,7 @@ textarea {
 				<div id="right">
 					<div class="mainImage">
 						<img id="mainImage" width="200px" height="200px"
-							src="../semiview/images/camera.png" /></br> 
+							src="../semiview/images/handout/${dto.main_picture}" /></br> 
 						<label for="mainfile" class="fileImages">메인이미지</label> 
 							<a href="handOutUpdateWrite.do" id="fileSelect" class="inputFiles">
 							<input type="file" name="mainfile" id="mainfile" value="${dto.main_picture}"/></a> 

@@ -17,9 +17,7 @@ import semidemo.handOutAction.UpdateFormAction;
 import semidemo.handOutAction.UpdateProAction;
 import semidemo.handOutAction.ViewAction;
 import semidemo.handOutAction.WriteAction;
-import semidemo.handOutAction.commDeleteAction;
-import semidemo.handOutAction.commViewAction;
-import semidemo.handOutAction.commWriteAction;
+
 
 //시작하는 곳 (메인 페이지)
 @WebServlet("/mammaMain/*")
@@ -102,11 +100,7 @@ public class semiMainController extends HttpServlet {
 			//상세 페이지 이동시 DB에 있는 내용 테이블에 불러와서 보여준다.
 			ViewAction view = new ViewAction();
 			view.execute(req, resp);
-			
-			//상세 페이지에서 그동안 입력된 댓글 보여준다.
-			//commViewAction commList = new commViewAction();
-			//commList.execute(req, resp);
-			
+						
 			path = "/semiview/menu/handOut/handOutView.jsp";
 
 		} else if (action.equals("/handOutUpdateWrite.do")) {
@@ -131,22 +125,7 @@ public class semiMainController extends HttpServlet {
 			//현재 페이지값을 넘겨주면서, 상품 리스트로 이동.
 			resp.sendRedirect("handOut.do?pageNum="+req.getParameter("pageNum"));
 		
-		} else if (action.equals("/commWrite.do")) {
-			//상세 페이지 댓글 입력
-			//commWriteAction commWrite = new commWriteAction();
-			//commWrite.execute(req, resp);
-			
-			resp.sendRedirect("handOutView.do?handout_post_num="+req.getParameter("handout_post_num")+"&pageNum="+req.getParameter("pageNum"));
-			
-		} else if (action.equals("/commDelete.do")) {
-			//상세 페이지 댓글 삭제
-			commDeleteAction commDelete = new commDeleteAction();
-			commDelete.execute(req, resp);
-			
-			resp.sendRedirect("handOutView.do?handout_post_num="+req.getParameter("handout_post_num")+"&pageNum="+req.getParameter("pageNum"));
-			//path = "/semiview/menu/handOut/handOutView.jsp";
-		}
-
+		} 
 		
 		
 		if (path != "") { // 기본값이 아닐때, path가 설정되어 있을때, sendRedirect방식을 사용할때, forward방식을 사용하지 않을때

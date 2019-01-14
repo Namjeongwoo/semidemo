@@ -32,7 +32,7 @@ public class CommentUpdateController extends HttpServlet{
 		//dto.setHandout_comm_num(handout_comm_num);
 		//dto.setContent(content);
 		//dao.comm_UpdateMethod(dto);
-		System.out.println(handout_post_num +" "+  handout_comm_num +" "+ comm_content);
+		
 		dao.comm_UpdateMethod(handout_comm_num, comm_content);
 		
 		resp.setContentType("text/html;charset=utf-8");

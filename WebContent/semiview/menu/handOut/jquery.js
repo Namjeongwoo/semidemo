@@ -31,7 +31,7 @@ function insertHandOutComment(){
 
 //댓글 출력
 function listView(handout_post_num){
-	alert('listView 실행');
+	
 	$.ajax({
 		type: 'GET',
 		dataType: 'json',
@@ -45,7 +45,7 @@ function listView(handout_post_num){
 
 //댓글 출력 성공 메소드
 function show(comment) {
-	alert('listView 의 success show 실행');
+	
 	for (index in comment) {
 	 
 		
@@ -90,7 +90,7 @@ function show(comment) {
 //댓글 업데이트 버튼
 function UpdateHandOutComment(handout_comm_num, comm_content, handout_post_num){
 	
-		alert("ajax 들어가기 직전  comm_content"+comm_content);
+		
 		$.ajax({
 			type: 'POST',
 			dataType: 'text',
@@ -105,7 +105,7 @@ function UpdateHandOutComment(handout_comm_num, comm_content, handout_post_num){
 }
 //댓글 업데이트 성공 메소드
 function update(comment){
-	alert("이게 업데이트다!!" + comment);
+	
 	$('#commContent').empty();
 	listView(comment); //listView 재호출
 	//댓글 수정이 안료 되었으면 수정창은 안보이게 하고 댓글 입력 창을 다시 띄워준다.
@@ -114,7 +114,7 @@ function update(comment){
 
 //댓글 삭제
 function DeleteHandOutComment(handout_comm_num, handout_post_num){
-	alert("DeleteHandoutComment 입장");
+	
 	
 	$.ajax({
 		type:'GET',

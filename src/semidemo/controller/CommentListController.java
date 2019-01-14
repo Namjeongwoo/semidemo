@@ -50,7 +50,7 @@ public class CommentListController extends HttpServlet{
 		}
 		
 		
-		System.out.println(jsonArr);
+		
 		
 		resp.setContentType("text/html;charset=utf-8");
 		PrintWriter out = resp.getWriter();

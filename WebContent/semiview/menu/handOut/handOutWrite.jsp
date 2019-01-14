@@ -221,9 +221,7 @@ textarea {
 	line-height: 200px;
 }
 
-#upload {
-	background-image: url("../semiview/images/upload_on.png");
-}
+
 
 /*-------------------------------------------------------------------------*/
 </style>
@@ -261,11 +259,7 @@ textarea {
 											"off.png"));
 						});
 
-				//파일 선택 시 메인 이미지 글쓰기 화면에서 보여주기.
-				var myfile = $('#file').prop('files');
-				$('#fileSelect').click(function() {
-					$('#mainImage').attr("src", $(this).attr("src"));
-				});
+				
 
 				//등록 버튼 이미지 hover 적용
 				$('#uploadImage').hover(
@@ -297,14 +291,198 @@ textarea {
 											"off.png"));
 						});
 				
+				
 				//등록버튼 서브밋 이벤트.
-				$('#upload').click(function(){
+				$('form').on('submit',function(){
+									
 					$('[name=contents]').val($('[name=contents]').val().replace(/\n/gi,'<br/>'));
-					$('#writeForm').submit();
-				});
+					
+			         //제목, 내용 빈칸일시 alert
+			         var title = $('#title').val();
+			         if (title == "") {
+			            alert("제목을 입력하세요");
+			            return false;
+			         }
 
-			
-			});
+			         var contents = $('#contents').val();
+			         if (contents == "") {
+			            alert("내용을 입력하세요!");
+			            return false;
+			         }
+			         //지역 콤보박스
+			         var area = $('#area').val();
+			         if (area == "지역별") {
+				            alert("지역을 입력하세요");
+				            return false;
+				         }
+			         //종류 콤보박스
+			         var type = $('#kinds').val();
+			         if (type == "종류") {
+				            alert("종류를 입력하세요");
+				            return false;
+				         }
+			         //사용기간 콤보박스
+			         var term = $('#useTerm').val();
+			         if (term == "사용기간") {
+				            alert("사용기간을 입력하세요");
+				            return false;
+				         }
+			         //상품상태 콤보박스
+			         var condition = $('#itemCondition').val();
+			         if (condition == "상품상태") {
+				            alert("상품상태를 입력하세요");
+				            return false;
+				         }
+			         
+			         
+			     				
+					//이미지 파일 선택 안하면 alert 띄우기
+					var str = $('#mainfile').val();
+					var str1 = $('#file1').val();
+					var str2 = $('#file2').val();
+					var str3 = $('#file3').val();
+					if(str.length < 1){
+						alert('메인이미지를 선택하세요');
+						return false;
+					}else if(str1.length < 1){
+						alert('이미지1를 선택하세요');
+						return false;
+					
+					}else if(str2.length < 1){
+						alert('이미지2를 선택하세요');
+						return false;
+					
+					}else if(str3.length < 1){
+						alert('이미지3를 선택하세요');
+						return false;
+					}
+					
+										
+				});
+				
+				//mainfile 요소에서 change 이벤트가 발생하면, 
+				$('#mainfile').on('change', function(){
+					var str = $('#mainfile').val();
+					
+					//제한 두기
+					//이미지 첨부파일인지 체크
+					//정규화 표현식 이용
+					var patt = /(.jpg$|.gif$|.png$|.PNG$)/g;
+					var result = str.match(patt);
+					
+					if(!result){
+						//null이면
+						alert('jpg, gif, png만 가능합니다.');
+						$('#mainfile').val(''); //초기화를 시켜줌
+						$('#mainImage').attr('src',"../semiview/images/camera.png");
+						
+						return false;
+					}
+					if(this.files && this.files[0]){
+						if(this.files[0].size > 1000000){
+							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+							$('#mainfile').val('');
+							return false;
+						}
+					}
+					
+					//파일 읽어와서 카메라 모양 잡힌곳에 넣어주기.
+					//파일을 읽기 위한 filereader 객체생성
+					var reader = new FileReader();
+					//file 내용을 읽어 dataURL 형식의 문자열로 저장.
+					reader.readAsDataURL(this.files[0]);
+					
+					//파일 읽기 성공시 호출되는 이벤트 핸들러
+					reader.onload = function(e){
+						$('#mainImage').attr("src", e.target.result);
+					};
+					
+				});
+				
+				//이미지1 요소에서 change 이벤트가 발생하면,
+				$('#file1').on('change', function(){
+					var str = $('#file1').val();
+					
+					//제한 두기
+					//이미지 첨부파일인지 체크
+					//정규화 표현식 이용
+					var patt = /(.jpg$|.gif$|.png$|.PNG$)/g;
+					var result = str.match(patt);
+					
+					if(!result){
+						//null이면
+						alert('jpg, gif, png만 가능합니다.');
+						$('#file1').val(''); //초기화를 시켜줌
+						
+						
+						return false;
+					}
+					if(this.files && this.files[0]){
+						if(this.files[0].size > 1000000){
+							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+							$('#file1').val('');
+							return false;
+						}
+					}
+				});
+				
+				//이미지2 요소에서 change 이벤트가 발생하면,
+				$('#file2').on('change', function(){
+					var str = $('#file2').val();
+					
+					//제한 두기
+					//이미지 첨부파일인지 체크
+					//정규화 표현식 이용
+					var patt = /(.jpg$|.gif$|.png$|.PNG$)/g;
+					var result = str.match(patt);
+					
+					if(!result){
+						//null이면
+						alert('jpg, gif, png만 가능합니다.');
+						$('#file2').val(''); //초기화를 시켜줌
+						
+						
+						return false;
+					}
+					if(this.files && this.files[0]){
+						if(this.files[0].size > 1000000){
+							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+							$('#file2').val('');
+							return false;
+						}
+					}
+				});
+				
+				//이미지3 요소에서 change 이벤트가 발생하면,
+				$('#file3').on('change', function(){
+					var str = $('#file3').val();
+					
+					//제한 두기
+					//이미지 첨부파일인지 체크
+					//정규화 표현식 이용
+					var patt = /(.jpg$|.gif$|.png$|.PNG$)/g;
+					var result = str.match(patt);
+					
+					if(!result){
+						//null이면
+						alert('jpg, gif, png만 가능합니다.');
+						$('#file3').val(''); //초기화를 시켜줌
+						
+						
+						return false;
+					}
+					if(this.files && this.files[0]){
+						if(this.files[0].size > 1000000){
+							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+							$('#file3').val('');
+							return false;
+						}
+					}
+				});
+				
+				
+						
+		});
 </script>
 </head>
 <body>
@@ -370,7 +548,8 @@ textarea {
 								<option value="대전">대전</option>
 								<option value="부산">부산</option>
 								<option value="울산">울산</option>
-							</select> <select id="kinds" name="kinds">
+							</select> 
+							<select id="kinds" name="kinds">
 								<option value="종류">종류</option>
 								<option value="가구">가구</option>
 								<option value="장난감">장난감</option>
@@ -378,14 +557,14 @@ textarea {
 								<option value="신발">신발</option>
 								<option value="카시트">카시트</option>
 								<option value="유모차">유모차</option>
-							</select> <select id="period of use" name="period of use">
+							</select> <select id="useTerm" name="period of use">
 								<option value="사용기간">사용기간</option>
 								<option value="1개월~3개월">1개월~3개월</option>
 								<option value="4개월~6개월">4개월~6개월</option>
 								<option value="7개월~9개월">7개월~9개월</option>
 								<option value="10개월~12개월">10개월~12개월</option>
 								<option value="1년이상">1년이상</option>
-							</select> <select id="Product status" name="Product status">
+							</select> <select id="itemCondition" name="Product status">
 								<option value="상품상태">상품상태</option>
 								<option value="최상">최상</option>
 								<option value="상">상</option>
@@ -405,7 +584,7 @@ textarea {
 							src="../semiview/images/camera.png" /></br> 
 						<label for="mainfile" class="fileImages">메인이미지</label> 
 							<a href="handOutWriteForm.do" id="fileSelect" class="inputFiles">
-							<input type="file" name="mainfile" id="mainfile" /></a> 
+							<input type="file" name="mainfile" id="mainfile"/></a> 
 						<label for="file1" class="fileImages">이미지1</label> 
 						<a href="handOutWriteForm.do" id="fileSelect" class="inputFiles">
 							<input type="file" id="file1" name="file1"/></a></br> 

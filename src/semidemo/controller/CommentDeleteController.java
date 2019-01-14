@@ -15,14 +15,12 @@ import semidemo.dao.Handout_commDAO;
 public class CommentDeleteController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("CommentDeleteController 입장");
+		
 		int handout_post_num = Integer.parseInt(req.getParameter("handout_post_num"));
 		int handout_comm_num = Integer.parseInt(req.getParameter("handout_comm_num"));
 		
 		
-		System.out.println("댓글 삭제 handout_post_num :"+ handout_post_num);
-		System.out.println("댓글 삭제 handout_comm_num :"+ handout_comm_num);
-		
+				
 		
 		Handout_commDAO dao = Handout_commDAO.getInstance();
 		dao.comm_deleteMethod(handout_comm_num);

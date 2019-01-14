@@ -31,7 +31,7 @@ public class CommentInsertController extends HttpServlet{
 	}
 	protected void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		System.out.println(req.getParameter("handout_post_num"));
+		
 		int handout_post_num = Integer.parseInt(req.getParameter("handout_post_num"));
 		
 		
