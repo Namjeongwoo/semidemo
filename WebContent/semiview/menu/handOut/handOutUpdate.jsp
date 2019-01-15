@@ -473,13 +473,13 @@
 						//null이면
 						alert('jpg, gif, png만 가능합니다.');
 						$('#mainfile').val(''); //초기화를 시켜줌
-						$('#mainImage').attr('src',"../semiview/images/camera.png");
+						$('#mainImage').attr('src',"../semiview/images/handout/photo.png");
 						
 						return false;
 					}
 					if(this.files && this.files[0]){
-						if(this.files[0].size > 1000000){
-							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+						if(this.files[0].size > 10000000){
+							alert('10MB바이트 이하만 첨부하실 수 있습니다.');
 							$('#mainfile').val('');
 							return false;
 						}
@@ -517,8 +517,8 @@
 						return false;
 					}
 					if(this.files && this.files[0]){
-						if(this.files[0].size > 1000000){
-							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+						if(this.files[0].size > 10000000){
+							alert('10MB바이트 이하만 첨부하실 수 있습니다.');
 							$('#file1').val('');
 							return false;
 						}
@@ -544,8 +544,8 @@
 						return false;
 					}
 					if(this.files && this.files[0]){
-						if(this.files[0].size > 1000000){
-							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+						if(this.files[0].size > 10000000){
+							alert('10MB바이트 이하만 첨부하실 수 있습니다.');
 							$('#file2').val('');
 							return false;
 						}
@@ -571,8 +571,8 @@
 						return false;
 					}
 					if(this.files && this.files[0]){
-						if(this.files[0].size > 1000000){
-							alert('1MB바이트 이하만 첨부하실 수 있습니다.');
+						if(this.files[0].size > 10000000){
+							alert('10MB바이트 이하만 첨부하실 수 있습니다.');
 							$('#file3').val('');
 							return false;
 						}

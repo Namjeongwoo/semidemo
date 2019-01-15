@@ -608,22 +608,35 @@
 				
 				//댓글입력
 				$('#commInputBtn').on('click', function() {
-					//alert($('.commTextArea').val());
+					
 					if($('[name=textInput]').val() == ""){
 						alert('댓글을 입력해주세요.');
 						return false;
-					} else if($('#callImage').attr("src") == "../semiview/images/handout/call_on.png") {
+					}
+					
+					if($('#callImage').attr("src") == "../semiview/images/handout/call_off.png" && $('#quesImage').attr("src") == "../semiview/images/handout/ques_off.png"){
+						alert('질문유형을 선택해주세요.');
+						return false;
+					}
+					
+					if($('#callImage').attr("src") == "../semiview/images/handout/call_on.png") {
 						$('#image').attr("value","call_on.png");
 						
 					} else if($('#quesImage').attr("src") == "../semiview/images/handout/ques_on.png"){
 						$('#image').attr("value","ques_on.png");
-					}
+					} 
 					
 					$('[name=textInput]').val($('[name=textInput]').val().replace(/\n/gi,'<br/>'));
 					
+					
 					insertHandOutComment();  //댓글입력 function()
 					$('[name=textInput]').val("");
-					//listView("${requestScope.dto.handout_post_num}"); //댓글 리스트 출력 function()
+					if($('#callImage').attr("src") == "../semiview/images/handout/call_on.png"){
+						$('#callImage').attr("src",$('#callImage').attr("src").replace("on.png","off.png"));
+					} else if($('#quesImage').attr("src") == "../semiview/images/handout/ques_on.png"){
+						$('#quesImage').attr("src",$('#quesImage').attr("src").replace("on.png","off.png"));
+					}
+					
 					
 				});
 				
@@ -632,18 +645,19 @@
 				//댓글 수정 버튼
 				$(document).on('click','[name="commUpdateBtn"]', function(){
 					
-					var selEle = $(this).parents().parents(); //댓글수정 버튼 부모요소 div 요소를 가지고온다.
+					var selEle = $(this).parent().parent(); //댓글수정 버튼 부모요소 div 요소를 가지고온다.
+					//var selEle = $(this).parent().parent();
 					alert(selEle.html());
-					var comm_content = selEle.children('p').html(); // 댓글 내용
-					alert(comm_content);
+					//var comm_content = selEle.children('p[id=comm_content]').html(); // 댓글 내용
+					//alert(comm_content);
 										
 					//selEle.children('#commtf').val(comm_content); // 기존에 댓글을 textarea 에 넣는다.
-					selEle.children('div[class="tfDiv"]').css({'display':'block'}); //댓글 수정 창 띄우기
-					return false;
+					//selEle.children('div[class="tfDiv"]').css({'display':'block'}); //댓글 수정 창 띄우기
+					//return false;
 					
 					if(selEle.children('div[class="tfDiv"]').css("display") =="none"){
-						var pInput = selEle.children('p').html();
-						alert(pInput.html());
+						var pInput = selEle.children('div[id="centerDiv"]').children('p').text();
+						alert(pInput);
 						selEle.children('div[class="tfDiv"]').children('textarea').val(pInput);
 						selEle.children('div[class="tfDiv"]').show();
 					}else{
