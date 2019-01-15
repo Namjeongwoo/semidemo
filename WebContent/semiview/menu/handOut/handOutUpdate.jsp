@@ -237,7 +237,9 @@
 	height: 300px;
 	margin-top: 10px;
 	/* background-color: aqua; */
-	border-bottom: 1px solid #ccc;
+	border-bottom: 3px solid #ccc;
+	padding-bottom: 15px;
+	margin-bottom: 10px;
 }
 
 #content #inputContent .handout_content textarea {
