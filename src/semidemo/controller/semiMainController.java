@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -25,7 +26,7 @@ public class semiMainController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doProcess(req, resp);
-
+		
 	}// end doGet()//////////////////////////////////////////
 
 	@Override
@@ -42,7 +43,7 @@ public class semiMainController extends HttpServlet {
 
 		// forward 경로지정할 변수
 		String path = "";
-
+		
 		if (action.equals("/*")) {
 			// 메인 페이지로 이동 (페이지지정 및 이동)
 			path = "/semiview/main/semimain.jsp";
