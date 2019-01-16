@@ -49,7 +49,7 @@ function show(comment) {
 	for (index in comment) {
 		
 		
-		var div = $('<div style="border: 1px solid black; margin: auto; margin-bottom: 10px; margin-top: 10px; width:80%; height: 80px; overflow: auto; border-radius: 3px;"></div>'); //div 생성.
+		var div = $('<div style="border: 1px solid black; margin: auto; margin-bottom: 10px; margin-top: 10px; width:90%; height: 80px; overflow: auto; border-radius: 3px;"></div>'); //div 생성.
 		$('#commContent').append(div); //새로 만든 div 추가
 		//이미지 div 생성
 		var imgDiv = $('<div style="float: left; margin: 10px 10px; padding-top: 5px;"></div>'); 
@@ -63,7 +63,7 @@ function show(comment) {
 		$(centerDiv).append(nickname);
 		var write_time = $('<span id="comm_write_time">'+comment[index].write_time+'</span>');
 		$(centerDiv).append(write_time);
-		var content = $('<p id="comm_content">'+comment[index].content+'</p>');
+		var content = $('<p id="comm_content" style="width: 600px;">'+comment[index].content+'</p>');
 		$(centerDiv).append(content);
 			
 		//버튼 div 생성	
@@ -82,7 +82,7 @@ function show(comment) {
 		
 		var tfDiv = $('<div class="tfDiv" style = "position: absolute; display : none; margin-top:30px; padding-left: 70px;" ></div>'); //수정 버튼을 띄울떄 나올 div.
 		$(div).append(tfDiv);
-		var tf = $('<textarea rows="2" cols="45" id="commtf" name="commtf" placeholder="수정사항을 입력해주세요."></textarea>');
+		var tf = $('<textarea rows="2" cols="80" id="commtf" name="commtf" placeholder="수정사항을 입력해주세요."></textarea>');
 		$(tfDiv).append(tf);
 		var inputUpdate = $('<input type="image" value="'+comment[index].handout_comm_num+'" src="../semiview/images/checked.png" id = "inputUpdate" style = "width: 30px; height: 30px; size: 30px; padding-left:20px;"/>');
 		$(tfDiv).append(inputUpdate);
